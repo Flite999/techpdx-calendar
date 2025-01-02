@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Sanchez&display=swap" rel="stylesheet">
+    <title><%= content_for(:title) || "Techpdx Calendar" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <header class="border-b border-indigo-200 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600">
+      <div class="mx-auto max-w-screen-xl px-4 py-4 sm:px-6 sm:py-12 lg:px-8">
+        <div class="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <div class="mb-6">
+              <h1 class="text-2xl text-green-950 sm:text-3xl font-sanchez"><%= link_to 'TechPDX Calendar' , home_event_path, class: "hover:text-gray-700" %></h1>
+            </div>
+            <h2 class="text-green-950 font-medium"><%= link_to 'Add an event' , add_event_path, class: "hover:text-gray 500" %></h2>
+          </div>
+          <div class="items-center gap-4 mr-4">
+            <div>
+              <%= form_with url: search_events_path, method: :get, local: true do %>
+                <div class="flex items-center">
+                  <%= label_tag :query, "Search Events:", class: "mr-4 text-gray-900 font-medium" %>
+                  <%= text_field_tag :query, params[:query], class: "w-full rounded-lg border-gray-200 p-3 text-sm" %>
+                </div>
+              <% end %>
+            </div>            
+            <div class="mt-4">
+              <h3 class="text-gray-900 font-medium"><%= link_to 'File a bug report', 'mailto:thesearentthedroidsyouarelookingfor@example.com', class: "hover:text-gray-700" %></h3>
+            </div>
+            <div class="mt-2">
+              <h3 class="text-gray-900 font-medium"><%= link_to 'Github', 'https://github.com/Flite999/techpdx-calendar', target: 'blank', class: "hover:text-gray-700" %></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <%= yield %>
+  </body>
+</html>

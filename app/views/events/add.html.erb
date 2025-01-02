@@ -1,0 +1,54 @@
+<!--
+  Heads up! 👋
+
+  Plugins:
+    - @tailwindcss/forms
+-->
+<div class="m-8">
+  <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
+              Add a New Event
+  </h3>
+</div>
+<%= form_with model: @event, url: create_event_path, local: true do |form| %>
+  <div class="mx-auto max-w-screen-xl px-4 py-2 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
+      <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
+          <div class="rounded-lg border mb-4">
+            <%= form.label :title, "Title *", class: "sr-only", for: "title" %>
+            <%= form.text_field :title, class: "w-full rounded-lg border-gray-200 p-3 text-sm", placeholder: "Title *", type: "text", id: "title" %>
+          </div>
+          <div class="rounded-lg border mb-4">
+            <%= form.label :venue_details, class: "sr-only", for: "venue_details" %>
+            <%= form.text_area :venue_details, class: "w-full rounded-lg border-gray-200 p-3 text-sm", placeholder: "Venue Details", type: "text", id: "venue_details" %>
+          </div>
+          <div class="mb-4">
+            <%= form.label :start_time, "Start time *", class: "ml-2 text-sm font-medium text-gray-800" %>
+              <%= form.datetime_select :start_time, class: "mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm" %>
+          </div>
+          <div class="mb-4">
+            <%= form.label :end_time, "End time *", class: "ml-2 text-sm font-medium text-gray-800" %>
+            <%= form.datetime_select :end_time, class: "mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm" %>
+          </div>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+            <div class="rounded-lg border mb-4">
+                <%= form.label :google_map_link, class: "sr-only", for: "google_map_link" %>
+                <%= form.text_area :google_map_link, class: "w-full rounded-lg border-gray-200 p-3 text-sm", placeholder: "Google Map Link", type: "hyperlink", id: "google_map_link" %>
+              </div>
+            </div>
+            <div class="rounded-lg border mb-4">
+              <%= form.label :website, class: "sr-only", for: "website" %>
+              <%= form.text_area :website, class: "w-full rounded-lg border-gray-200 p-3 text-sm", placeholder: "Website", type: "hyperlink", id: "website" %>
+            </div>
+          </div>
+          <div class="rounded-lg border mb-4">
+              <%= form.label :description, class: "sr-only", for: "description" %>
+              <%= form.text_area :description, class: "w-full rounded-lg border-gray-200 p-3 text-sm", placeholder: "Description", rows: "8", id: "description" %>
+          </div>
+          <div class="mt-4">
+            <%= form.submit class: "inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto" %>
+          </div>
+      </div>
+    </div>
+  </div>
+<% end %>
