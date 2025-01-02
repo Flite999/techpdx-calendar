@@ -71,3 +71,7 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 3.1"
+
+# postgres
+gem "pg"
+# gem "libpq"
