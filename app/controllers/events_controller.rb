@@ -1,10 +1,39 @@
 class EventsController < ApplicationController
+  require 'icalendar'
+  require 'open-uri'
+
   def add
     @event = Event.new
   end
 
+  def show
+    @event = Event.find(params[:id])
+  end
+
   def import
     @event = Event.new
+  end
+
+  def import_create
+    url = params[:url]
+    ical_data = URI.open(url).read
+    calendars = Icalendar::Calendar.parse(ical_data)
+    puts 'logging calendars array'
+    puts calendars.inspect
+    calendar = calendars.first
+
+    calendar.events.each do | event |
+      Event.create(
+        title: event.summary,
+        description: event.description,
+        start_time: event.dtstart,
+        end_time: event.dtend,
+        venue_details: event.location,
+        website: event.url
+      )
+    end
+
+    redirect_to home_event_path, notice: 'Events were successfully imported'
   end
 
   def home

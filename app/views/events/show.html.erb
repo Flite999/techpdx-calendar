@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @event.title %> - PDXTech Calendar</title>
+</head>
+<body>
+  <div class="mx-auto max-w-screen-xl px-4 py-4 sm:px-6 sm:py-12 lg:px-8">
+    <h1 class="text-2xl font-bold"><%= @event.title %></h1>
+    <p class="text-sm text-gray-500"><%= @event.description %></p>
+    <dl class="mt-6">
+      <div class="mb-2">
+        <dt class="text-sm font-medium text-gray-600">Start Time</dt>
+        <dd class="text-sm text-gray-900"><%= @event.start_time.in_time_zone('Pacific Time (US & Canada)').strftime('%B %d, %Y %I:%M %p') %></dd>
+      </div>
+      <div class="mb-2">
+        <dt class="text-sm font-medium text-gray-600">End Time</dt>
+        <dd class="text-sm text-gray-900"><%= @event.end_time.in_time_zone('Pacific Time (US & Canada)').strftime('%B %d, %Y %I:%M %p') %></dd>
+      </div>
+      <div class="mb-2">
+        <dt class="text-sm font-medium text-gray-600">Venue Details</dt>
+        <dd class="text-sm text-gray-900"><%= @event.venue_details %></dd>
+      </div>
+      <div class="mb-2">
+        <dt class="text-sm font-medium text-gray-600">Google Map Link</dt>
+        <dd class="text-sm text-gray-900"><%= link_to @event.google_map_link, @event.google_map_link, target: "_blank" %></dd>
+      </div>
+      <div class="mb-2">
+        <dt class="text-sm font-medium text-gray-600">Website</dt>
+        <dd class="text-sm text-gray-900"><%= link_to @event.website, @event.website, target: "_blank" %></dd>
+      </div>
+    </dl>
+  </div>
+</body>
+</html>
