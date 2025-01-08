@@ -15,3 +15,10 @@ To troubleshoot database, run `rails console`
 To run the dev server with auto-reload on saved files: `bin/dev`
 
 Sample calendar for testing importing: https://www.calendarlabs.com/ical-calendar/ics/76/US_Holidays.ics
+
+Heroku cmds:
+* `heroku login`
+* `git push heroku main`
+* `heroku run rails db: migrate`
+* `heroku run rails console`
+* `heroku logs --tail`
