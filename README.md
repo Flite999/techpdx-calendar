@@ -1,6 +1,7 @@
 # PDXTech Calendar
 
 https://www.pdxtech.io
+Version 0.1.0
 
 Ruby 3.3.6
 Rails 8.0.1
