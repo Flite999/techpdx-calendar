@@ -8,6 +8,10 @@
   <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
               Import a New Event
   </h3>
+  <p class="italic"> Current supported import formats:</p>
+  <ul class="list-disc pl-5">
+    <li class="italic">iCalendar format (.ics)</li>
+  </ul>
 </div>
 <%= form_with url: import_events_path, method: :post, local: true do |form| %>
   <div class="mx-auto max-w-screen-xl px-4 py-2 sm:px-6 lg:px-8">
@@ -15,7 +19,7 @@
       <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
           <div class="rounded-lg border mb-4">
             <%= form.label :url, "Enter URL for import...", class: "sr-only", for: "url" %>
-            <%= text_field_tag :url, nil, class: "w-full rounded-lg border-gray-200 p-3 text-sm", placeholder: "Enter URL for import...", type: "text", id: "url" %>
+            <%= text_field_tag :url, nil, class: "w-full rounded-lg border-gray-200 p-3 text-sm", placeholder: "Enter URL for import...(.ics)", type: "text", id: "url" %>
           </div>
           <div class="mt-4">
             <%= submit_tag "Import", class: "inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto" %>
