@@ -36,6 +36,24 @@ class EventsController < ApplicationController
     redirect_to home_event_path, notice: 'Events were successfully imported'
   end
 
+  def feed
+    events = Event.all
+    calendar = Icalendar::Calendar.new
+    events.each do |event|
+      calendar_event = Icalendar::Event.new
+      calendar_event.dtstart = event.start_time
+      calendar_event.dtend = event.end_time
+      calendar_event.summary = event.title
+      calendar_event.description = event.description
+      calendar_event.location = event.venue_details
+      calendar_event.url = event.website
+      calendar.add_event(calendar_event)
+    end
+
+    calendar.publish
+    render plain: calendar.to_ical, content_type: 'text/calendar'
+  end
+
   def home
     # @events = Event.all
     @events_today = Event.where(start_time: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)

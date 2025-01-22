@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get "events/home", as: :home_event
   get "events/search", to: "events#search", as: :search_events
   get "events/:id", to: "events#show", as: :event_detail
+  get 'events/feed', to: 'events#feed', as: :events_feed
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

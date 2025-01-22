@@ -41,6 +41,9 @@
             <div class="mt-2">
               <h2 class="text-green-950 font-medium"><%= link_to 'Import an event' , import_events_path, class: "hover:text-gray 500" %></h2>
             </div>
+            <div class="mt-2 flex items-center">
+              <h2 class="text-green-950 font-medium italic"><%= link_to 'Subscribe to iCalendar' , events_feed_url(protocol: :webcal, format: :ics), class: "hover:text-gray 500" %></h2><i class="fas fa-calendar-alt ml-2"></i>
+            </div>
           </div>
           <div class="items-center gap-4 mr-4">
             <div>
