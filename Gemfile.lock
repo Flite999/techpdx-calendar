@@ -126,6 +126,7 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    htmlentities (4.3.4)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     icalendar (2.10.3)
@@ -405,6 +406,7 @@ DEPENDENCIES
   capybara
   debug
   faker
+  htmlentities
   icalendar
   importmap-rails
   jbuilder

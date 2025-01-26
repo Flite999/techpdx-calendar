@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   require 'icalendar'
   require 'open-uri'
+  require 'htmlentities'
 
   def add
     @event = Event.new
@@ -15,6 +16,7 @@ class EventsController < ApplicationController
   end
 
   def import_create
+    coder = HTMLEntities.new
     url = params[:url]
     ical_data = URI.open(url).read
     calendars = Icalendar::Calendar.parse(ical_data)
@@ -25,7 +27,7 @@ class EventsController < ApplicationController
     calendar.events.each do | event |
       Event.create(
         title: event.summary,
-        description: event.description,
+        description: coder.decode(event.description),
         start_time: event.dtstart,
         end_time: event.dtend,
         venue_details: event.location,
