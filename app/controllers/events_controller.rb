@@ -53,6 +53,8 @@ class EventsController < ApplicationController
     end
 
     calendar.publish
+
+    
     render plain: calendar.to_ical, content_type: 'text/calendar'
   end
 
