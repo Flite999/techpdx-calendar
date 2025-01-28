@@ -14,7 +14,7 @@
       </div>
       <ul>
         <% @events_today.each do |event| %>
-          <%= render partial: 'event', locals: { event: event } %>
+          <%= render partial: 'event_preview', locals: { event: event} %>
         <% end %>
       </ul>
     </div>
@@ -24,7 +24,7 @@
       </div>
       <ul>
         <% @events_tomorrow.each do |event| %>
-          <%= render partial: 'event', locals: { event: event } %>
+          <%= render partial: 'event_preview', locals: { event: event } %>
         <% end %>
       </ul>
     </div>

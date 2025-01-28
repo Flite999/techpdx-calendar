@@ -3,7 +3,9 @@
   <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Sanchez&display=swap" rel="stylesheet">
-    <title><%= content_for(:title) || "PDXTech Calendar" %></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <%= favicon_link_tag asset_path('cal.ico') %>
+    <title><%= content_for(:title) || "TechPDX Calendar" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -31,13 +33,17 @@
         <div class="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <div class="mb-6">
-              <h1 class="text-2xl text-green-950 sm:text-3xl font-sanchez"><%= link_to 'PDXTech Calendar' , home_event_path, class: "hover:text-gray-700" %></h1>
+              <h1 class="text-2xl text-green-950 sm:text-3xl font-sanchez"><%= link_to 'TechPDX Calendar' , home_event_path, class: "hover:text-gray-700" %></h1>
+              <p class="text-green-950 font-sanchez">Version 0.2.0</p>
             </div>
             <div>
               <h2 class="text-green-950 font-medium"><%= link_to 'Add an event' , add_event_path, class: "hover:text-gray 500" %></h2>
             </div>
             <div class="mt-2">
               <h2 class="text-green-950 font-medium"><%= link_to 'Import an event' , import_events_path, class: "hover:text-gray 500" %></h2>
+            </div>
+            <div class="mt-2 flex items-center">
+              <h2 class="text-green-950 font-medium italic"><%= link_to 'Subscribe to iCalendar' , events_feed_url(protocol: :webcal, format: :ics), class: "hover:text-gray 500" %></h2><i class="fas fa-calendar-alt ml-2"></i>
             </div>
           </div>
           <div class="items-center gap-4 mr-4">
@@ -50,10 +56,13 @@
               <% end %>
             </div>            
             <div class="mt-4">
-              <h3 class="text-gray-900 font-medium"><%= link_to 'File a bug report', 'https://github.com/Flite999/pdxtech-calendar/issues', class: "hover:text-gray-700" %></h3>
+              <h3 class="text-gray-900 font-medium italic"><%= link_to 'File a bug report', 'https://github.com/Flite999/techpdx-calendar/issues', class: "hover:text-gray-700" %></h3>
             </div>
             <div class="mt-2">
-              <h3 class="text-gray-900 font-medium"><%= link_to 'Github', 'https://github.com/Flite999/pdxtech-calendar', target: 'blank', class: "hover:text-gray-700" %></h3>
+              <h3 class="text-gray-900 font-medium italic"><%= link_to 'Github', 'https://github.com/Flite999/techpdx-calendar', target: 'blank', class: "hover:text-gray-700" %></h3>
+            </div>
+            <div class="mt-2 flex items-center">
+              <h3 class="text-gray-900 font-medium italic"><%= link_to 'Join the TechPDX Discord Community!', 'https://discord.gg/RcuHZNdr8w', target: 'blank', class: "hover:text-gray-700" %></h3><i class="fab fa-discord ml-2"></i>
             </div>
           </div>
         </div>

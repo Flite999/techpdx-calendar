@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   require 'icalendar'
   require 'open-uri'
+  require 'htmlentities'
 
   def add
     @event = Event.new
@@ -15,6 +16,7 @@ class EventsController < ApplicationController
   end
 
   def import_create
+    coder = HTMLEntities.new
     url = params[:url]
     ical_data = URI.open(url).read
     calendars = Icalendar::Calendar.parse(ical_data)
@@ -25,7 +27,7 @@ class EventsController < ApplicationController
     calendar.events.each do | event |
       Event.create(
         title: event.summary,
-        description: event.description,
+        description: coder.decode(event.description),
         start_time: event.dtstart,
         end_time: event.dtend,
         venue_details: event.location,
@@ -34,6 +36,24 @@ class EventsController < ApplicationController
     end
 
     redirect_to home_event_path, notice: 'Events were successfully imported'
+  end
+
+  def feed
+    events = Event.all
+    calendar = Icalendar::Calendar.new
+    events.each do |event|
+      calendar_event = Icalendar::Event.new
+      calendar_event.dtstart = event.start_time
+      calendar_event.dtend = event.end_time
+      calendar_event.summary = event.title
+      calendar_event.description = event.description
+      calendar_event.location = event.venue_details
+      calendar_event.url = event.website
+      calendar.add_event(calendar_event)
+    end
+
+    calendar.publish
+    render plain: calendar.to_ical, content_type: 'text/calendar'
   end
 
   def home
@@ -61,6 +81,6 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:title, :description, :start_time, :end_time, :tags, :google_map_link, :website, :venue_details)
+    params.require(:event).permit(:title, :description, :start_time, :end_time, :tags, :website, :venue_details)
   end
 end

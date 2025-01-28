@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_18_200154) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_26_210815) do
   create_table "events", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "title", null: false
+    t.string "title"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.string "google_map_link"
     t.string "website"
     t.text "description"
     t.text "venue_details"
