@@ -4,39 +4,69 @@
   <title>TechPDX Calendar</title>
 </head>
 <body>
-  <div class="mx-auto max-w-screen-xl px-4 py-4 sm:px-6 sm:py-12 lg:px-8">
-    <div class="mb-4">
-      <h1 class="font-bold"> Upcoming Events </h1>
-    </div>
-    <div class="mb-4">
-      <div class="mb-2">
-        <h2 class="italic font-medium" > Today </h2>
+  <div class="mx-auto max-w-screen-xl px-4 py-4 bg-grey10 sm:px-6 sm:py-12 lg:px-8">
+    <div class="bg-white w-3/5 border-2 rounded-lg border-grey8">
+      <div class="pb-4 pt-6 pl-4 pr-4 bg-grey10">
+        <div class="mb-4">
+          <p class="text-base text-grey3"> Upcoming Events </p>
+        </div>
       </div>
-      <ul>
-        <% @events_today.each do |event| %>
-          <%= render partial: 'event_preview', locals: { event: event} %>
+      <div class="p-6">
+        <% if @events_today.empty? %>
+          <div class="mb-4">
+            <p class="font-medium text-grey5"> No events today </p>
+          </div>
+        <% else %>
+          <div class="mb-4">
+            <div class="mb-2">
+              <h2 class="text-grey5 font-medium" > Today </h2>
+            </div>
+            <ul>
+              <% @events_today.each do |event| %>
+                <div class="border-b border-grey9">
+                  <%= render partial: 'event_preview', locals: { event: event} %>
+                </div>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
-    </div>
-    <div class="mb-4">
-      <div class="mb-2">
-        <h2 class="italic font-medium" > Tomorrow </h2>
+        <% if @events_tomorrow.empty? %>
+          <div class="mb-4">
+            <p class="font-medium text-grey5"> No events tomorrow </p>
+          </div>
+        <% else %>
+          <div class="mb-4">
+            <div class="mb-2">
+              <h2 class="text-grey5 font-medium" > Tomorrow </h2>
+            </div>
+            <ul>
+              <% @events_tomorrow.each do |event| %>
+                <div class="border-b border-grey9">
+                  <%= render partial: 'event_preview', locals: { event: event } %>
+                </div>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <% if @events_next_two_weeks.empty? %>
+          <div class="mb-4">
+            <p class="font-medium text-grey5"> No events the next two weeks </p>
+          </div>
+        <% else %>
+          <div class="mb-4">
+            <div class="mb-2">
+              <h2 class="text-grey5 font-medium" > Next Two Weeks </h2>
+            </div>
+            <ul>
+              <% @events_next_two_weeks.each do |event| %>
+                <div class="border-b border-grey9">
+                  <%= render partial: 'event_preview', locals: { event: event } %>
+                </div>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
       </div>
-      <ul>
-        <% @events_tomorrow.each do |event| %>
-          <%= render partial: 'event_preview', locals: { event: event } %>
-        <% end %>
-      </ul>
-    </div>
-    <div class="mb-4">
-      <div class="mb-2">
-        <h2 class="italic font-medium" > Next Two Weeks </h2>
-      </div>
-      <ul>
-        <% @events_next_two_weeks.each do |event| %>
-          <%= render partial: 'event', locals: { event: event } %>
-        <% end %>
-      </ul>
     </div>
   </div>
 </body>

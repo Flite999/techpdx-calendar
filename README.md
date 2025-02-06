@@ -1,12 +1,14 @@
 # TechPDX Calendar
 
 https://www.techpdx.io
-Version 0.2.0
+Version 0.3.0
 
 Ruby 3.3.6
 Rails 8.0.1
 
 To seed data, run `bin/rails db:seed`
+
+To clear the db, run `bin/rails db:drop db:create db:migrate`
 
 To troubleshoot database, run `rails console`
 

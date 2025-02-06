@@ -3,28 +3,34 @@
 <head>
   <title><%= @event.title %> - TechPDX Calendar</title>
 </head>
-<body>
-  <div class="mx-auto max-w-screen-xl px-4 py-4 sm:px-6 sm:py-12 lg:px-8">
-    <h1 class="text-2xl font-bold"><%= @event.title %></h1>
-    <p class="text-sm text-gray-500"><%= @event.description %></p>
-    <dl class="mt-6">
-      <div class="mb-2">
-        <dt class="text-sm font-medium text-gray-600">Start Time</dt>
-        <dd class="text-sm text-gray-900"><%= @event.start_time.in_time_zone('Pacific Time (US & Canada)').strftime('%B %d, %Y %I:%M %p') %></dd>
+<body class="flex flex-col min-h-screen">
+  <div class="flex-grow max-w-screen-xl sm:px-6 sm:py-12 lg:px-8">
+    <div class="border-2 border-grey9 rounded-lg">
+      <div class="p-4 pl-6 bg-grey10">
+        <h1 class="text-2xl text-grey3"><%= @event.title %></h1>
       </div>
-      <div class="mb-2">
-        <dt class="text-sm font-medium text-gray-600">End Time</dt>
-        <dd class="text-sm text-gray-900"><%= @event.end_time.in_time_zone('Pacific Time (US & Canada)').strftime('%B %d, %Y %I:%M %p') %></dd>
+      <div class="p-6">
+        <p class="text-sm text-grey4 mb-8"><%= @event.description %></p>
+        <dl class="">
+          <div class = "flex flex-row items-baseline mb-4">
+            <div class="">
+              <dd class="text-sm text-grey4"><%= @event.start_time.in_time_zone('Pacific Time (US & Canada)').strftime('%B %d, %Y %I:%M %p') %></dd>
+            </div>
+            <div class="text-sm ml-4 text-grey4">
+            </div>
+            <div class="ml-4">
+              <dd class="text-sm text-grey4"><%= @event.end_time.in_time_zone('Pacific Time (US & Canada)').strftime('%B %d, %Y %I:%M %p') %></dd>
+            </div>
+          </div>
+          <div class="mb-4">
+            <dd class="text-sm text-grey4"><%= @event.venue_details %></dd>
+          </div>
+          <div class="mb-4">
+            <dd class="text-sm text-grey4 font-semibold"><%= link_to @event.website, @event.website, target: "_blank" %></dd>
+          </div>
+        </dl>
       </div>
-      <div class="mb-2">
-        <dt class="text-sm font-medium text-gray-600">Venue Details</dt>
-        <dd class="text-sm text-gray-900"><%= @event.venue_details %></dd>
-      </div>
-      <div class="mb-2">
-        <dt class="text-sm font-medium text-gray-600">Website</dt>
-        <dd class="text-sm text-gray-900"><%= link_to @event.website, @event.website, target: "_blank" %></dd>
-      </div>
-    </dl>
+    </div>
   </div>
 </body>
 </html>

@@ -15,11 +15,9 @@ require 'faker'
         title: Faker::Lorem.sentence,
         start_time: Faker::Time.between(from: DateTime.now.beginning_of_day, to: DateTime.now.end_of_day),
         end_time: Faker::Time.between(from: DateTime.now.beginning_of_day, to: DateTime.now.end_of_day),
-        google_map_link: Faker::Internet.url,
         website: Faker::Internet.url,
         description: Faker::Lorem.paragraph,
-        venue_details: Faker::Address.full_address,
-        tags: Faker::Lorem.words(number: 4).join(", ")
+        venue_details: Faker::Address.full_address
     )
 end
 2.times do
@@ -27,11 +25,9 @@ end
         title: Faker::Lorem.sentence,
         start_time: Faker::Time.forward(days: 1, period: :morning),
         end_time: Faker::Time.forward(days: 1, period: :evening),
-        google_map_link: Faker::Internet.url,
         website: Faker::Internet.url,
         description: Faker::Lorem.paragraph,
-        venue_details: Faker::Address.full_address,
-        tags: Faker::Lorem.words(number: 4).join(", ")
+        venue_details: Faker::Address.full_address
     )
 end
 2.times do
@@ -39,11 +35,9 @@ end
         title: Faker::Lorem.sentence,
         start_time: Faker::Time.forward(days: 5, period: :morning),
         end_time: Faker::Time.forward(days: 5, period: :evening),
-        google_map_link: Faker::Internet.url,
         website: Faker::Internet.url,
         description: Faker::Lorem.paragraph,
-        venue_details: Faker::Address.full_address,
-        tags: Faker::Lorem.words(number: 4).join(", ")
+        venue_details: Faker::Address.full_address
     )
 end
 2.times do
@@ -51,10 +45,8 @@ end
         title: Faker::Lorem.sentence,
         start_time: Faker::Time.forward(days: 12, period: :morning),
         end_time: Faker::Time.forward(days: 12, period: :evening),
-        google_map_link: Faker::Internet.url,
         website: Faker::Internet.url,
         description: Faker::Lorem.paragraph,
-        venue_details: Faker::Address.full_address,
-        tags: Faker::Lorem.words(number: 4).join(", ")
+        venue_details: Faker::Address.full_address
     )
 end
