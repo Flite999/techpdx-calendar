@@ -28,46 +28,49 @@
   </head>
 
   <body>
-    <header class="border-b border-indigo-200 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600">
+  <header class="bg-gradient-to-r from-green4 to-green2">
       <div class="mx-auto max-w-screen-xl px-4 py-4 sm:px-6 sm:py-12 lg:px-8">
-        <div class="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <div class="mb-6">
-              <h1 class="text-2xl text-green-950 sm:text-3xl font-sanchez"><%= link_to 'TechPDX Calendar' , home_event_path, class: "hover:text-gray-700" %></h1>
-              <p class="text-green-950 font-sanchez">Version 0.2.0</p>
-            </div>
+        <div class="flex items-row md:flex-row md:items-center md:justify-between">
+          <div class="flex flex-row items-baseline">
             <div>
-              <h2 class="text-green-950 font-medium"><%= link_to 'Add an event' , add_event_path, class: "hover:text-gray 500" %></h2>
+              <p class="text-2xl text-grey10 sm:text-3xl"><%= link_to 'TechPDX Calendar' , home_event_path %></p>
+              <p class="text-green7 mt-2">Version 0.3.0</p>
             </div>
-            <div class="mt-2">
-              <h2 class="text-green-950 font-medium"><%= link_to 'Import an event' , import_events_path, class: "hover:text-gray 500" %></h2>
-            </div>
-            <div class="mt-2 flex items-center">
-              <h2 class="text-green-950 font-medium italic"><%= link_to 'Subscribe to iCalendar' , events_feed_url(protocol: :webcal, format: :ics), class: "hover:text-gray 500" %></h2><i class="fas fa-calendar-alt ml-2"></i>
-            </div>
+              <div class="ml-6">
+                <p class="text-green9 font-medium hover:border-b-2 hover:border-current"><%= link_to 'Add Event' , add_event_path %></p>
+              </div>
+              <div class="ml-4">
+                <p class="text-green9 font-medium hover:border-b-2 hover:border-current"><%= link_to 'Import Event' , import_events_path %></p>
+              </div>
+              <div class="ml-4 flex items-center hover:border-b-2 hover:border-green9">
+                <p class="text-green9 font-medium "><%= link_to 'Subscribe' , events_feed_url(protocol: :webcal, format: :ics) %></p><i class="text-green7 fas fa-calendar-alt ml-2"></i>
+              </div>
           </div>
-          <div class="items-center gap-4 mr-4">
+          <div class="mr-2 w-1/4">
             <div>
               <%= form_with url: search_events_path, method: :get, local: true do %>
-                <div class="flex items-center">
-                  <%= label_tag :query, "Search Events:", class: "mr-4 text-gray-900 font-medium" %>
-                  <%= text_field_tag :query, params[:query], class: "w-full rounded-lg border-gray-200 p-3 text-sm" %>
+                <div>
+                  <%= text_field_tag :query, params[:query], placeholder: "Search...", class: "w-full rounded-xl p-4 text-sm bg-grey10" %>
                 </div>
               <% end %>
             </div>            
-            <div class="mt-4">
-              <h3 class="text-gray-900 font-medium italic"><%= link_to 'File a bug report', 'https://github.com/Flite999/techpdx-calendar/issues', class: "hover:text-gray-700" %></h3>
-            </div>
-            <div class="mt-2">
-              <h3 class="text-gray-900 font-medium italic"><%= link_to 'Github', 'https://github.com/Flite999/techpdx-calendar', target: 'blank', class: "hover:text-gray-700" %></h3>
-            </div>
-            <div class="mt-2 flex items-center">
-              <h3 class="text-gray-900 font-medium italic"><%= link_to 'Join the TechPDX Discord Community!', 'https://discord.gg/RcuHZNdr8w', target: 'blank', class: "hover:text-gray-700" %></h3><i class="fab fa-discord ml-2"></i>
-            </div>
           </div>
         </div>
       </div>
     </header>
     <%= yield %>
+    <footer class="bg-gradient-to-r from-green4 to-green2">
+      <div class="flex flex-row items-baseline pl-8 pt-4 pb-4">
+        <div class="hover:border-b-2 hover:border-green9">
+        <p class="text-green9 font-medium"><%= link_to 'File a bug report', 'https://github.com/Flite999/techpdx-calendar/issues' %></p>
+        </div>
+        <div class="ml-6 hover:border-b-2 hover:border-green9">
+          <p class="text-green9 font-medium"><%= link_to 'Github', 'https://github.com/Flite999/techpdx-calendar', target: 'blank' %></p>
+        </div>
+        <div class="ml-6 flex items-center hover:border-b-2 hover:border-green9">
+          <p class="text-green9 font-medium"><%= link_to 'Join the TechPDX Discord Community!', 'https://discord.gg/RcuHZNdr8w', target: 'blank' %></p><i class="fab fa-discord text-green8 ml-2"></i>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

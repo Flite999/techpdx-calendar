@@ -1,27 +1,20 @@
 <div
-class="relative w-1/2 overflow-hidden rounded-lg border border-gray-100 p-4 mb-4 sm:p-6 lg:p-8"
+class="w-full p-6 mb-2 sm:p-6 lg:p-8"
 >
-    <span
-        class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"
-    ></span>
     <div class="sm:flex sm:justify-between sm:gap-4">
         <div>
-        <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
-            <%= link_to event.title , event_detail_path(event), class: "hover:text-gray-700" %>
+        <h3 class="text-lg text-green2 sm:text-xl">
+            <%= link_to event.title , event_detail_path(event) %>
         </h3>
         </div>
     </div>
-        <div class="mt-4">
-            <p class="text-pretty text-sm text-gray-500">
-            <%= truncate(event.description.html_safe, length: 400) %>
-            </p>
-        </div>
-    <dl class="mt-6 flex gap-4 sm:gap-6">
+    <dl class="mt-6 flex sm:gap-6">
         <div class="flex flex-col-reverse">
-            <dt class="text-sm font-medium text-gray-600"><%= event.start_time.in_time_zone('Pacific Time (US & Canada)').strftime('%B %d, %Y %I:%M %p') %></dt>
+            <dt class="text-sm text-grey4"><%= event.start_time.in_time_zone('Pacific Time (US & Canada)').strftime('%l:%M %p') %></dt>
             </div>
+            <p>-</p>
             <div class="flex flex-col-reverse">
-            <dt class="text-sm font-medium text-gray-600"><%= event.end_time.in_time_zone('Pacific Time (US & Canada)').strftime('%B %d, %Y %I:%M %p') %></dt>
+            <dt class="text-sm text-grey4"><%= event.end_time.in_time_zone('Pacific Time (US & Canada)').strftime('%l:%M %p') %></dt>
         </div>
     </dl>
 </div>

@@ -60,9 +60,9 @@ class EventsController < ApplicationController
 
   def home
     # @events = Event.all
-    @events_today = Event.where(start_time: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
-    @events_tomorrow = Event.where(start_time: Time.zone.now.tomorrow.beginning_of_day..Time.zone.now.tomorrow.end_of_day)
-    @events_next_two_weeks = Event.where(start_time: Time.zone.tomorrow.end_of_day..(Time.zone.now + 2.weeks).end_of_day)
+    @events_today = Event.where(start_time: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).order(:start_time).group_by { |event| event.start_time.to_date}
+    @events_tomorrow = Event.where(start_time: Time.zone.now.tomorrow.beginning_of_day..Time.zone.now.tomorrow.end_of_day).order(:start_time).group_by { |event| event.start_time.to_date}
+    @events_next_two_weeks = Event.where(start_time: Time.zone.tomorrow.end_of_day..(Time.zone.now + 2.weeks).end_of_day).order(:start_time).group_by { |event| event.start_time.to_date}
     @popular_tags = Event.group(:tags).order('count_id DESC').limit(10).count(:id).keys
   end
 
@@ -76,8 +76,13 @@ class EventsController < ApplicationController
   end
 
   def search
-    @events = Event.where("title LIKE ?", "%#{params[:query]}%")
+    @events = Event.where("title LIKE ?", "%#{params[:query]}%").order(:start_time).group_by { |event| event.start_time.to_date}
     render :search
+  end
+
+  def all
+    @events = Event.all.order(:start_time).group_by { |event| event.start_time.to_date}
+    render :all
   end
 
   private

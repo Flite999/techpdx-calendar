@@ -4,27 +4,29 @@
   Plugins:
     - @tailwindcss/forms
 -->
-<div class="m-8">
-  <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
-              Import a New Event
-  </h3>
-  <p class="italic"> Current supported import formats:</p>
-  <ul class="list-disc pl-5">
-    <li class="italic">iCalendar format (.ics)</li>
-  </ul>
-</div>
-<%= form_with url: import_events_path, method: :post, local: true do |form| %>
-  <div class="mx-auto max-w-screen-xl px-4 py-2 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
-      <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
-          <div class="rounded-lg border mb-4">
+
+  <div class="mx-auto max-w-screen-xl px-4 py-4 bg-grey10 sm:px-6 sm:py-12 lg:px-8">
+    <div class="bg-white w-3/5 border-2 rounded-lg border-grey8">
+      <div class="p-6">
+        <p class="text-lg text-grey3 sm:text-xl mb-4">
+          Import a New Event
+        </p>
+        <p class="text-grey5"> Current supported import formats:</p>
+        <ul class="list-disc pl-6">
+          <li class="text-grey5">iCalendar format (.ics)</li>
+        </ul>
+      </div>
+      <div class="p-6">
+        <%= form_with url: import_events_path, method: :post, local: true do |form| %>
+          <div class="rounded-lg border mb-8">
             <%= form.label :url, "Enter URL for import...", class: "sr-only", for: "url" %>
-            <%= text_field_tag :url, nil, class: "w-full rounded-lg border-gray-200 p-3 text-sm", placeholder: "Enter URL for import...(.ics)", type: "text", id: "url" %>
+            <%= text_field_tag :url, nil, class: "w-full rounded-lg border-grey4 p-4 text-sm", placeholder: "Enter URL for import...(.ics)", type: "text", id: "url" %>
           </div>
-          <div class="mt-4">
-            <%= submit_tag "Import", class: "inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto" %>
+          <div class="">
+            <%= submit_tag "Import", class: "inline-block w-full rounded-lg bg-green4 px-5 py-3 font-medium text-grey10 sm:w-auto" %>
           </div>
+        <% end %>
       </div>
     </div>
   </div>
-<% end %>
+
