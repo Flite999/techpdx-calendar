@@ -21,14 +21,31 @@
             <div class="mb-2">
               <h2 class="text-grey5 font-medium" > Today </h2>
             </div>
-            <ul>
-              <% @events_today.each do |event| %>
-                <div class="border-b border-grey9">
-                  <%= render partial: 'event_preview', locals: { event: event} %>
+            <div class="grid grid-cols-4 gap-2">
+              <% @events_today.each do |date, events| %>
+                <div class="col-span-1 py-9">
+                  <div class="flex flex-col">
+                    <div class="text-base text-grey4 font-medium">
+                      <%= date.strftime('%B %d, %Y') %>
+                    </div>
+                    <div class="text-sm text-grey4">
+                      <%= date.strftime('%A') %>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-span-3">
+                  <ul>
+                    <% events.each do |event| %>
+                      <div class="border-b border-grey9">
+                        <%= render partial: 'event_preview', locals: { event: event} %>
+                      </div>
+                    <% end %>
+                  </ul>
                 </div>
               <% end %>
-            </ul>
+            </div>
           </div>
+       
         <% end %>
         <% if @events_tomorrow.empty? %>
           <div class="mb-4">
@@ -39,13 +56,29 @@
             <div class="mb-2">
               <h2 class="text-grey5 font-medium" > Tomorrow </h2>
             </div>
-            <ul>
-              <% @events_tomorrow.each do |event| %>
-                <div class="border-b border-grey9">
-                  <%= render partial: 'event_preview', locals: { event: event } %>
+            <div class="grid grid-cols-4 gap-2">
+              <% @events_tomorrow.each do |date, events| %>
+                <div class="col-span-1 py-9">
+                  <div class="flex flex-col">
+                    <div class="text-base text-grey4 font-medium">
+                      <%= date.strftime('%B %d, %Y') %>
+                    </div>
+                    <div class="text-sm text-grey4">
+                      <%= date.strftime('%A') %>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-span-3">
+                  <ul>
+                    <% events.each do |event| %>
+                      <div class="border-b border-grey9">
+                        <%= render partial: 'event_preview', locals: { event: event } %>
+                      </div>
+                    <% end %>
+                  </ul>
                 </div>
               <% end %>
-            </ul>
+            </div>
           </div>
         <% end %>
         <% if @events_next_two_weeks.empty? %>
@@ -57,13 +90,29 @@
             <div class="mb-2">
               <h2 class="text-grey5 font-medium" > Next Two Weeks </h2>
             </div>
-            <ul>
-              <% @events_next_two_weeks.each do |event| %>
-                <div class="border-b border-grey9">
-                  <%= render partial: 'event_preview', locals: { event: event } %>
+            <div class="grid grid-cols-4 gap-2">
+              <% @events_next_two_weeks.each do |date, events| %>
+                <div class="col-span-1 py-9">
+                    <div class="flex flex-col">
+                      <div class="text-base text-grey4 font-medium">
+                        <%= date.strftime('%B %d, %Y') %>
+                      </div>
+                      <div class="text-sm text-grey4">
+                        <%= date.strftime('%A') %>
+                      </div>
+                    </div>
+                  </div>
+                <div class="col-span-3">
+                  <ul>
+                    <% events.each do |event| %>
+                      <div class="border-b border-grey9">
+                        <%= render partial: 'event_preview', locals: { event: event } %>
+                      </div>
+                    <% end %>
+                  </ul>
                 </div>
               <% end %>
-            </ul>
+            </div>
           </div>
         <% end %>
       </div>
