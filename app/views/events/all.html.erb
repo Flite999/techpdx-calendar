@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>All Events - TechPDX Calendar</title>
+</head>
+
+<body>
+    <div class="mb-4 mt-8 ml-8">
+        <h1 class="text-lg text-grey3"> All Events </h1>
+    </div>
+    <div class="ml-4">
+        <div>
+          <ul>
+            <div class="grid grid-cols-4 gap-2">
+              <% @events.each do |date, events| %>
+                <div class="col-span-1 py-9">
+                  <div class="flex flex-col">
+                    <div class="text-base text-grey4 font-medium">
+                      <%= date.strftime('%B %d, %Y') %>
+                    </div>
+                    <div class="text-sm text-grey4">
+                      <%= date.strftime('%A') %>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-span-3">
+                  <% events.each do |event| %>
+                    <div class="border-b border-grey9">
+                      <%= render partial: 'event_preview', locals: { event: event } %>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </ul>
+        </div>
+    </div>
+</body>
+
+</html>

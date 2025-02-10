@@ -76,8 +76,13 @@ class EventsController < ApplicationController
   end
 
   def search
-    @events = Event.where("title LIKE ?", "%#{params[:query]}%")
+    @events = Event.where("title LIKE ?", "%#{params[:query]}%").order(:start_time).group_by { |event| event.start_time.to_date}
     render :search
+  end
+
+  def all
+    @events = Event.all.order(:start_time).group_by { |event| event.start_time.to_date}
+    render :all
   end
 
   private
