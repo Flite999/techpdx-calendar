@@ -8,11 +8,6 @@ class="w-full p-6 mb-2 sm:p-6 lg:p-8"
         </h3>
         </div>
     </div>
-        <div class="mt-4">
-            <p class="text-sm text-grey4">
-            <%= truncate(event.description.html_safe, length: 400) %>
-            </p>
-        </div>
     <dl class="mt-6 flex gap-4 sm:gap-6">
         <div class="flex flex-col-reverse">
             <dt class="text-sm text-grey4"><%= event.start_time.in_time_zone('Pacific Time (US & Canada)').strftime('%B %d, %Y %I:%M %p') %></dt>

@@ -10,7 +10,9 @@
         <h1 class="text-2xl text-grey3"><%= @event.title %></h1>
       </div>
       <div class="p-6">
-        <p class="text-sm text-grey4 mb-8"><%= @event.description %></p>
+        <div class="text-sm text-grey4 mb-8">
+          <%= format_description(@event.description) %>
+        </div>
         <dl class="">
           <div class = "flex flex-row items-baseline mb-4">
             <div class="">
