@@ -10,6 +10,20 @@
           <%= format_description(@event.description) %>
         </div>
         <%= render "events/event_details", event: @event %>
+        <% if @event.venue_details.present? %>
+          <div class="mt-6">
+            <h2 class="text-sm text-grey4 mb-2">Location</h2>
+            <iframe
+              width="500"
+              height="350"
+              style="border:0"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps/embed/v1/place?key=<%= Rails.application.credentials.dig(:google_maps, :api_key) || ENV['GOOGLE_MAPS_API_KEY'] %>&q=<%= ERB::Util.url_encode(@event.venue_details) %>">
+            </iframe>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

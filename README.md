@@ -12,6 +12,10 @@ To clear the db, run `bin/rails db:drop db:create db:migrate`
 
 To troubleshoot database, run `rails console`
 
+To edit the credential file for local testing: `bin/rails credentials:edit`
+
+To set env vars in Heroku: `heroku config:set ENV_VAR=ENV_VALUE`
+
 * From the console you can run `Event.all` to see all events
 * Page through all events as an array `Event.all.to_a`
 
