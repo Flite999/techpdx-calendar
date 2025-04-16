@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
-  require 'icalendar'
-  require 'open-uri'
-  require 'htmlentities'
+  require "icalendar"
+  require "open-uri"
+  require "htmlentities"
 
   def add
     @event = Event.new
@@ -20,7 +20,7 @@ class EventsController < ApplicationController
     url = params[:url]
     ical_data = URI.open(url).read
     calendars = Icalendar::Calendar.parse(ical_data)
-    puts 'logging calendars array'
+    puts "logging calendars array"
     puts calendars.inspect
     calendar = calendars.first
 
@@ -35,7 +35,7 @@ class EventsController < ApplicationController
       )
     end
 
-    redirect_to home_event_path, notice: 'Events were successfully imported'
+    redirect_to home_event_path, notice: "Events were successfully imported"
   end
 
   def feed
@@ -54,34 +54,40 @@ class EventsController < ApplicationController
 
     calendar.publish
 
-    
-    render plain: calendar.to_ical, content_type: 'text/calendar'
+
+    render plain: calendar.to_ical, content_type: "text/calendar"
   end
 
   def home
-    # @events = Event.all
-    @events_today = Event.where(start_time: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).order(:start_time).group_by { |event| event.start_time.to_date}
-    @events_tomorrow = Event.where(start_time: Time.zone.now.tomorrow.beginning_of_day..Time.zone.now.tomorrow.end_of_day).order(:start_time).group_by { |event| event.start_time.to_date}
-    @events_next_two_weeks = Event.where(start_time: Time.zone.tomorrow.end_of_day..(Time.zone.now + 2.weeks).end_of_day).order(:start_time).group_by { |event| event.start_time.to_date}
-    @popular_tags = Event.group(:tags).order('count_id DESC').limit(10).count(:id).keys
+    @events_today = Event.grouped_by_date(:today)
+    @events_tomorrow = Event.grouped_by_date(:tomorrow)
+    @events_next_two_weeks = Event.grouped_by_date(:next_two_weeks)
+    @popular_tags = Event.group(:tags).order("count_id DESC").limit(10).count(:id).keys
   end
 
   def create
     @event = Event.new(event_params)
     if @event.save
-      redirect_to home_event_path, notice: 'Event was successfully created.'
+      redirect_to home_event_path, notice: "Event was successfully created."
     else
       render :add
     end
   end
 
   def search
-    @events = Event.where("title LIKE ?", "%#{params[:query]}%").order(:start_time).group_by { |event| event.start_time.to_date}
+    query = params[:query].to_s.strip
+    if query.present?
+      @events = Event.where("LOWER(title) LIKE :q OR LOWER(description) LIKE :q", q: "%#{query}%")
+                   .order(:start_time)
+                   .group_by { |event| event.start_time.to_date }
+    else
+      @events = {}
+    end
     render :search
   end
 
   def all
-    @events = Event.all.order(:start_time).group_by { |event| event.start_time.to_date}
+    @events = Event.all.order(:start_time).group_by { |event| event.start_time.to_date }
     render :all
   end
 
