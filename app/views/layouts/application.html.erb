@@ -28,6 +28,11 @@
   </head>
   <body>
     <%= render "shared/header" %>
+    <% flash.each do |key, value| %>
+      <div class="text-md bg-grey10 text-red-600 px-8 py-4" >
+        <div class="flash <%= key %>"><%= value %></div>
+      </div>
+    <% end %>
     <%= yield %>
     <footer class="bg-gradient-to-r from-green4 to-green2">
       <div class="flex flex-row items-baseline pl-8 pt-4 pb-4">

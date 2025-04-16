@@ -20,22 +20,22 @@ class EventsController < ApplicationController
     url = params[:url]
     ical_data = URI.open(url).read
     calendars = Icalendar::Calendar.parse(ical_data)
-    puts "logging calendars array"
-    puts calendars.inspect
     calendar = calendars.first
 
-    calendar.events.each do | event |
-      Event.create(
-        title: event.summary,
-        description: coder.decode(event.description),
-        start_time: event.dtstart,
-        end_time: event.dtend,
-        venue_details: event.location,
-        website: event.url
-      )
+    calendar.events.each do |event|
+      unless Event.exists?(title: event.summary)
+        Event.create(
+          title: event.summary,
+          description: coder.decode(event.description),
+          start_time: event.dtstart,
+          end_time: event.dtend,
+          venue_details: event.location,
+          website: event.url
+        )
+      end
     end
 
-    redirect_to home_event_path, notice: "Events were successfully imported"
+    redirect_to home_event_path, notice: "Events were successfully imported."
   end
 
   def feed
@@ -67,7 +67,9 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
-    if @event.save
+    if Event.exists?(title: @event.title)
+      redirect_to add_event_path, alert: "An event with this title already exists."
+    elsif @event.save
       redirect_to home_event_path, notice: "Event was successfully created."
     else
       render :add

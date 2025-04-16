@@ -1,5 +1,5 @@
 class Event < ApplicationRecord
-    validates :title, presence: true
+    validates :title, presence: true, uniqueness: { case_sensitive: false, message: "An event with this title already exists." }
     validates :start_time, presence: true
     validates :end_time, presence: true
 
