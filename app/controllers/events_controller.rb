@@ -93,6 +93,20 @@ class EventsController < ApplicationController
     render :all
   end
 
+  def index
+    date = params[:date]
+
+    if date.present?
+      start_of_day = DateTime.parse(date).beginning_of_day
+      end_of_day = DateTime.parse(date).end_of_day
+
+      events = Event.where("start_time <= ? AND end_time >= ?", end_of_day, start_of_day)
+      render json: { events: events, hasEvents: events.any? }
+    else
+      render json: { error: "Invalid date parameter" }, status: :bad_request
+    end
+  end
+
   private
 
   def event_params
