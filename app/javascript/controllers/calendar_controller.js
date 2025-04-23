@@ -124,7 +124,13 @@ export default class extends Controller {
 
             // Highlight days with events using our cached data
             if (daysWithEvents[day]) {
-                dayCell.classList.add('bg-green2', 'text-white');
+                dayCell.classList.add('bg-green2', 'text-white', 'cursor-pointer', 'hover:bg-green3');
+
+                // Add click event to navigate to day-specific events page
+                dayCell.addEventListener('click', () => {
+                    const formattedDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+                    window.location.href = `/events/day/${formattedDate}`;
+                });
             }
 
             this.calendarGrid.appendChild(dayCell);

@@ -11,40 +11,48 @@
 require 'faker'
 
 2.times do
+    start_time = Faker::Time.between(from: DateTime.now.beginning_of_day, to: DateTime.now.end_of_day - 2.hours)
+    end_time = Faker::Time.between(from: start_time, to: DateTime.now.end_of_day)
     Event.create!(
         title: Faker::Lorem.sentence,
-        start_time: Faker::Time.between(from: DateTime.now.beginning_of_day, to: DateTime.now.end_of_day),
-        end_time: Faker::Time.between(from: DateTime.now.beginning_of_day, to: DateTime.now.end_of_day),
+        start_time: start_time,
+        end_time: end_time,
         website: Faker::Internet.url,
         description: Faker::Lorem.paragraph,
         venue_details: Faker::Address.full_address
     )
 end
 2.times do
+    start_time = Faker::Time.forward(days: 1, period: :morning)
+    end_time = Faker::Time.between(from: start_time, to: start_time + 8.hours)
     Event.create!(
         title: Faker::Lorem.sentence,
-        start_time: Faker::Time.forward(days: 1, period: :morning),
-        end_time: Faker::Time.forward(days: 1, period: :evening),
+        start_time: start_time,
+        end_time: end_time,
         website: Faker::Internet.url,
         description: Faker::Lorem.paragraph,
         venue_details: Faker::Address.full_address
     )
 end
 2.times do
+    start_time = Faker::Time.forward(days: 5, period: :morning)
+    end_time = Faker::Time.between(from: start_time, to: start_time + 8.hours)
     Event.create!(
         title: Faker::Lorem.sentence,
-        start_time: Faker::Time.forward(days: 5, period: :morning),
-        end_time: Faker::Time.forward(days: 5, period: :evening),
+        start_time: start_time,
+        end_time: end_time,
         website: Faker::Internet.url,
         description: Faker::Lorem.paragraph,
         venue_details: Faker::Address.full_address
     )
 end
 2.times do
+    start_time = Faker::Time.forward(days: 12, period: :morning)
+    end_time = Faker::Time.between(from: start_time, to: start_time + 8.hours)
     Event.create!(
         title: Faker::Lorem.sentence,
-        start_time: Faker::Time.forward(days: 12, period: :morning),
-        end_time: Faker::Time.forward(days: 12, period: :evening),
+        start_time: start_time,
+        end_time: end_time,
         website: Faker::Internet.url,
         description: Faker::Lorem.paragraph,
         venue_details: Faker::Address.full_address

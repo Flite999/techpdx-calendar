@@ -126,6 +126,21 @@ class EventsController < ApplicationController
     end
   end
 
+  def day
+    begin
+      date = Date.parse(params[:date])
+      start_of_day = date.beginning_of_day
+      end_of_day = date.end_of_day
+
+      @date = date
+      @events = { date => Event.where("start_time <= ? AND end_time >= ?", end_of_day, start_of_day).order(:start_time) }
+
+      render :day
+    rescue ArgumentError
+      redirect_to home_event_path, alert: "Invalid date format"
+    end
+  end
+
   private
 
   def event_params

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "events/feed", to: "events#feed", as: :events_feed
   get "events/all", to: "events#all", as: :all_events
   get "events/month", to: "events#month", as: :events_month
+  get "events/day/:date", to: "events#day", as: :day_events
   resources :events
   get "events/:id", to: "events#show", as: :event_detail
 
