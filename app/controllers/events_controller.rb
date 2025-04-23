@@ -107,6 +107,25 @@ class EventsController < ApplicationController
     end
   end
 
+  def month
+    start_date = params[:start]
+    end_date = params[:end]
+
+    if start_date.present? && end_date.present?
+      begin
+        start_time = DateTime.parse(start_date).beginning_of_day
+        end_time = DateTime.parse(end_date).end_of_day
+
+        events = Event.where("start_time <= ? AND end_time >= ?", end_time, start_time)
+        render json: { events: events }
+      rescue ArgumentError
+        render json: { error: "Invalid date format" }, status: :bad_request
+      end
+    else
+      render json: { error: "Missing start or end parameters" }, status: :bad_request
+    end
+  end
+
   private
 
   def event_params
