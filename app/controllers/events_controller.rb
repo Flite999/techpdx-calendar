@@ -23,14 +23,20 @@ class EventsController < ApplicationController
     calendar = calendars.first
 
     calendar.events.each do |event|
-      unless Event.exists?(title: event.summary)
+      # Convert Icalendar::Values::Text to strings before saving
+      summary = event.summary.to_s
+      description = event.description.to_s
+      location = event.location.to_s
+      event_url = event.url.to_s
+
+      unless Event.exists?(title: summary)
         Event.create(
-          title: event.summary,
-          description: coder.decode(event.description),
+          title: summary,
+          description: coder.decode(description),
           start_time: event.dtstart,
           end_time: event.dtend,
-          venue_details: event.location,
-          website: event.url
+          venue_details: location,
+          website: event_url
         )
       end
     end
