@@ -26,38 +26,13 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
   <body>
-  <header class="bg-gradient-to-r from-green4 to-green2">
-      <div class="mx-auto max-w-screen-xl px-4 py-4 sm:px-6 sm:py-12 lg:px-8">
-        <div class="flex items-row md:flex-row md:items-center md:justify-between">
-          <div class="flex flex-row items-baseline">
-            <div>
-              <p class="text-2xl text-grey10 sm:text-3xl"><%= link_to 'TechPDX Calendar' , home_event_path %></p>
-              <p class="text-green7 mt-2">Version 0.3.0</p>
-            </div>
-              <div class="ml-6">
-                <p class="text-green9 font-medium hover:border-b-2 hover:border-current"><%= link_to 'Add Event' , add_event_path %></p>
-              </div>
-              <div class="ml-4">
-                <p class="text-green9 font-medium hover:border-b-2 hover:border-current"><%= link_to 'Import Event' , import_events_path %></p>
-              </div>
-              <div class="ml-4 flex items-center hover:border-b-2 hover:border-green9">
-                <p class="text-green9 font-medium "><%= link_to 'Subscribe' , events_feed_url(protocol: :webcal, format: :ics) %></p><i class="text-green7 fas fa-calendar-alt ml-2"></i>
-              </div>
-          </div>
-          <div class="mr-2 w-1/4">
-            <div>
-              <%= form_with url: search_events_path, method: :get, local: true do %>
-                <div>
-                  <%= text_field_tag :query, params[:query], placeholder: "Search...", class: "w-full rounded-xl p-4 text-sm bg-grey10" %>
-                </div>
-              <% end %>
-            </div>            
-          </div>
-        </div>
+    <%= render "shared/header" %>
+    <% flash.each do |key, value| %>
+      <div class="text-md bg-grey10 text-red1 px-8 py-4" >
+        <div class="flash <%= key %>"><%= value %></div>
       </div>
-    </header>
+    <% end %>
     <%= yield %>
     <footer class="bg-gradient-to-r from-green4 to-green2">
       <div class="flex flex-row items-baseline pl-8 pt-4 pb-4">

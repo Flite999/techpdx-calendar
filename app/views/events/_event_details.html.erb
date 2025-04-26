@@ -1,0 +1,19 @@
+<dl class="">
+<div class = "flex flex-row items-baseline mb-4">
+    <div class="">
+    <dd class="text-sm text-grey4"><%= format_time_pacific(event.start_time) %></dd>
+    </div>
+    <div class="text-sm ml-4 text-grey4">
+    <p> - </p>
+    </div>
+    <div class="ml-4">
+    <dd class="text-sm text-grey4"><%= format_time_pacific(event.end_time) %></dd>
+    </div>
+</div>
+<div class="mb-4">
+    <dd class="text-sm text-grey4"><%= @event.venue_details %></dd>
+</div>
+<div class="mb-4">
+    <dd class="text-sm text-grey4 font-semibold"><%= link_to @event.website, @event.website, target: "_blank" %></dd>
+</div>
+</dl>

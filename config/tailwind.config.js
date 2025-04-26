@@ -29,7 +29,8 @@ module.exports = {
         grey7: '#B1B1B1',
         grey8: '#CFCFCF',
         grey9: '#E1E1E1',
-        grey10: '#F7F7F7'
+        grey10: '#F7F7F7',
+        red1: '#BA2525'
       },
       fontFamily: {
         sans: ['Roboto', ...defaultTheme.fontFamily.sans],

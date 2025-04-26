@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title><%= @event.title %> - TechPDX Calendar</title>
-</head>
-<body class="flex flex-col min-h-screen">
+<% content_for :title, "#{@event.title} - TechPDX Calendar" %>
+<div class="flex flex-col min-h-screen">
   <div class="flex-grow max-w-screen-xl sm:px-6 sm:py-12 lg:px-8">
     <div class="border-2 border-grey9 rounded-lg">
       <div class="p-4 pl-6 bg-grey10">
@@ -13,26 +9,22 @@
         <div class="text-sm text-grey4 mb-8">
           <%= format_description(@event.description) %>
         </div>
-        <dl class="">
-          <div class = "flex flex-row items-baseline mb-4">
-            <div class="">
-              <dd class="text-sm text-grey4"><%= @event.start_time.in_time_zone('Pacific Time (US & Canada)').strftime('%B %d, %Y %I:%M %p') %></dd>
-            </div>
-            <div class="text-sm ml-4 text-grey4">
-            </div>
-            <div class="ml-4">
-              <dd class="text-sm text-grey4"><%= @event.end_time.in_time_zone('Pacific Time (US & Canada)').strftime('%B %d, %Y %I:%M %p') %></dd>
-            </div>
+        <%= render "events/event_details", event: @event %>
+        <% if @event.venue_details.present? %>
+          <div class="mt-6">
+            <h2 class="text-sm text-grey4 mb-2">Location</h2>
+            <iframe
+              width="500"
+              height="350"
+              style="border:0"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps/embed/v1/place?key=<%= Rails.application.credentials.dig(:google_maps, :api_key) || ENV['GOOGLE_MAPS_API_KEY'] %>&q=<%= ERB::Util.url_encode(@event.venue_details) %>">
+            </iframe>
           </div>
-          <div class="mb-4">
-            <dd class="text-sm text-grey4"><%= @event.venue_details %></dd>
-          </div>
-          <div class="mb-4">
-            <dd class="text-sm text-grey4 font-semibold"><%= link_to @event.website, @event.website, target: "_blank" %></dd>
-          </div>
-        </dl>
+        <% end %>
       </div>
     </div>
   </div>
-</body>
-</html>
+</div>

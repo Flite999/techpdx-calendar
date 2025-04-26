@@ -5,121 +5,136 @@
 </head>
 <body>
   <div class="mx-auto max-w-screen-xl px-4 py-4 bg-grey10 sm:px-6 sm:py-12 lg:px-8">
-    <div class="bg-white w-3/5 border-2 rounded-lg border-grey8">
-      <div class="pb-4 pt-6 pl-4 pr-4 bg-grey10">
-        <div class="mb-4">
-          <p class="text-base text-grey3"> Upcoming Events </p>
+    <div class="flex">
+      <div class="w-2/3 pr-4">
+        <div class="bg-white border-2 rounded-lg border-grey8">
+          <div class="pb-4 pt-6 pl-4 pr-4 bg-grey10">
+            <div class="mb-4">
+              <p class="text-base text-grey3"> Upcoming Events </p>
+            </div>
+          </div>
+          <div class="p-6">
+            <% if @events_today.empty? %>
+              <div class="mb-4">
+                <p class="font-medium text-grey5"> No events today </p>
+              </div>
+            <% else %>
+              <div class="mb-4">
+                <div class="mb-2">
+                  <h2 class="text-grey5 font-medium" > Today </h2>
+                </div>
+                <div class="grid grid-cols-4 gap-2">
+                  <% @events_today.each do |date, events| %>
+                    <div class="col-span-1 py-9">
+                      <div class="flex flex-col">
+                        <div class="text-base text-grey4 font-medium">
+                          <%= date.strftime('%B %d, %Y') %>
+                        </div>
+                        <div class="text-sm text-grey4">
+                          <%= date.strftime('%A') %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-span-3">
+                      <ul>
+                        <% events.each do |event| %>
+                          <div class="border-b border-grey9">
+                            <%= render partial: 'event_preview', locals: { event: event} %>
+                          </div>
+                        <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+            <% if @events_tomorrow.empty? %>
+              <div class="mb-4">
+                <p class="font-medium text-grey5"> No events tomorrow </p>
+              </div>
+            <% else %>
+              <div class="mb-4">
+                <div class="mb-2">
+                  <h2 class="text-grey5 font-medium" > Tomorrow </h2>
+                </div>
+                <div class="grid grid-cols-4 gap-2">
+                  <% @events_tomorrow.each do |date, events| %>
+                    <div class="col-span-1 py-9">
+                      <div class="flex flex-col">
+                        <div class="text-base text-grey4 font-medium">
+                          <%= date.strftime('%B %d, %Y') %>
+                        </div>
+                        <div class="text-sm text-grey4">
+                          <%= date.strftime('%A') %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-span-3">
+                      <ul>
+                        <% events.each do |event| %>
+                          <div class="border-b border-grey9">
+                            <%= render partial: 'event_preview', locals: { event: event } %>
+                          </div>
+                        <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+            <% if @events_next_two_weeks.empty? %>
+              <div class="mb-4">
+                <p class="font-medium text-grey5"> No events the next two weeks </p>
+              </div>
+            <% else %>
+              <div class="mb-4">
+                <div class="mb-2">
+                  <h2 class="text-grey5 font-medium" > Next Two Weeks </h2>
+                </div>
+                <div class="grid grid-cols-4 gap-2">
+                  <% @events_next_two_weeks.each do |date, events| %>
+                      <div class="col-span-1 py-9">
+                        <div class="flex flex-col">
+                          <div class="text-base text-grey4 font-medium">
+                            <%= date.strftime('%B %d, %Y') %>
+                          </div>
+                          <div class="text-sm text-grey4">
+                            <%= date.strftime('%A') %>
+                          </div>
+                        </div>
+                      </div>
+                    <div class="col-span-3">
+                      <ul>
+                        <% events.each do |event| %>
+                          <div class="border-b border-grey9">
+                            <%= render partial: 'event_preview', locals: { event: event } %>
+                          </div>
+                        <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <div class="p-6">
+            <p class="text-lg text-green2 sm:text-xl">
+              <%= link_to 'All Events' , all_events_path %>
+            </p>
+          </div>
         </div>
       </div>
-      <div class="p-6">
-        <% if @events_today.empty? %>
-          <div class="mb-4">
-            <p class="font-medium text-grey5"> No events today </p>
+      <div class="w-1/3">
+        <div id="calendar" class="border-2 rounded-lg border-grey8 p-4" data-controller="calendar">
+          <div class="flex justify-between items-center mb-4">
+            <button id="prev-month" class="text-green2 font-medium">&lt; Previous</button>
+            <h2 id="current-month" class="text-base text-grey3"></h2>
+            <button id="next-month" class="text-green2 font-medium">Next &gt;</button>
           </div>
-        <% else %>
-          <div class="mb-4">
-            <div class="mb-2">
-              <h2 class="text-grey5 font-medium" > Today </h2>
-            </div>
-            <div class="grid grid-cols-4 gap-2">
-              <% @events_today.each do |date, events| %>
-                <div class="col-span-1 py-9">
-                  <div class="flex flex-col">
-                    <div class="text-base text-grey4 font-medium">
-                      <%= date.strftime('%B %d, %Y') %>
-                    </div>
-                    <div class="text-sm text-grey4">
-                      <%= date.strftime('%A') %>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-span-3">
-                  <ul>
-                    <% events.each do |event| %>
-                      <div class="border-b border-grey9">
-                        <%= render partial: 'event_preview', locals: { event: event} %>
-                      </div>
-                    <% end %>
-                  </ul>
-                </div>
-              <% end %>
-            </div>
+          <div id="calendar-grid" class="grid grid-cols-7 gap-2">
+            <!-- Calendar days will be dynamically inserted here -->
           </div>
-       
-        <% end %>
-        <% if @events_tomorrow.empty? %>
-          <div class="mb-4">
-            <p class="font-medium text-grey5"> No events tomorrow </p>
-          </div>
-        <% else %>
-          <div class="mb-4">
-            <div class="mb-2">
-              <h2 class="text-grey5 font-medium" > Tomorrow </h2>
-            </div>
-            <div class="grid grid-cols-4 gap-2">
-              <% @events_tomorrow.each do |date, events| %>
-                <div class="col-span-1 py-9">
-                  <div class="flex flex-col">
-                    <div class="text-base text-grey4 font-medium">
-                      <%= date.strftime('%B %d, %Y') %>
-                    </div>
-                    <div class="text-sm text-grey4">
-                      <%= date.strftime('%A') %>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-span-3">
-                  <ul>
-                    <% events.each do |event| %>
-                      <div class="border-b border-grey9">
-                        <%= render partial: 'event_preview', locals: { event: event } %>
-                      </div>
-                    <% end %>
-                  </ul>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-        <% if @events_next_two_weeks.empty? %>
-          <div class="mb-4">
-            <p class="font-medium text-grey5"> No events the next two weeks </p>
-          </div>
-        <% else %>
-          <div class="mb-4">
-            <div class="mb-2">
-              <h2 class="text-grey5 font-medium" > Next Two Weeks </h2>
-            </div>
-            <div class="grid grid-cols-4 gap-2">
-              <% @events_next_two_weeks.each do |date, events| %>
-                <div class="col-span-1 py-9">
-                    <div class="flex flex-col">
-                      <div class="text-base text-grey4 font-medium">
-                        <%= date.strftime('%B %d, %Y') %>
-                      </div>
-                      <div class="text-sm text-grey4">
-                        <%= date.strftime('%A') %>
-                      </div>
-                    </div>
-                  </div>
-                <div class="col-span-3">
-                  <ul>
-                    <% events.each do |event| %>
-                      <div class="border-b border-grey9">
-                        <%= render partial: 'event_preview', locals: { event: event } %>
-                      </div>
-                    <% end %>
-                  </ul>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-      <div class="p-6">
-        <p class="text-lg text-green2 sm:text-xl">
-          <%= link_to 'All Events' , all_events_path %>
-        </p>
+        </div>
       </div>
     </div>
   </div>
