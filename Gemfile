@@ -77,7 +77,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "tailwindcss-rails", "~> 3.1"
+gem "tailwindcss-rails", "~> 4.2"
 
 # postgres
 gem "pg"
