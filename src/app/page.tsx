@@ -1,4 +1,4 @@
-import EventActions from "./EventFunctions";
+import EventActions from "./components/EventFunctions";
 
 export default function Home() {
   return (
