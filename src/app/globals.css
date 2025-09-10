@@ -1,8 +1,1 @@
 @import "tailwindcss";
-
-
-html,
-body {
-  font-family: 'Reddit Mono', monospace;
-  width: 100%;
-}
