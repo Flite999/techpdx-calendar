@@ -1,7 +1,7 @@
 export default function Footer() {
     return (
         <footer className="mt-20 md:mt-36 mx-4">
-            <div className="flex gap-4 border-t lg:border-none pb-8 mb-5 flex-col lg:flex-row pt-4">
+            <div className="flex gap-4 border-t lg:border-none border-neutral-400 pb-8 mb-5 flex-col lg:flex-row pt-4">
                 <div className="w-full lg:w-2/3 ">
                     <a href="/">
                         <h1 className="text-lg font-bold">Tech PDX Calendar</h1>
@@ -14,6 +14,11 @@ export default function Footer() {
                     <div>
 
                         <ul className="flex flex-col gap-2 text-sm">
+                            <li>
+                                <a href="/subscribe" className="flex items-center gap-1 hover:no-underline hover:text-gray-600">
+                                    Subscribe
+                                </a>
+                            </li>
                             <li>
                                 <a
                                     href="/"
