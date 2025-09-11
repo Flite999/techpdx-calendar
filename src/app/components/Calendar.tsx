@@ -150,7 +150,7 @@ export default function Calendar() {
                                     dateTime={day.date}
                                     className="mx-auto flex size-7 items-center justify-center rounded-full in-data-is-selected:not-in-data-is-today:bg-gray-900 in-data-is-selected:in-data-is-today:bg-indigo-600 dark:in-data-is-selected:not-in-data-is-today:bg-white dark:in-data-is-selected:in-data-is-today:bg-indigo-500"
                                 >
-                                    {/* @ts-ignore */}
+                                    {/* @ts-expect-error - not ready to enforce default values here yet */}
                                     {day.date.split('-').pop().replace(/^0/, '')}
                                 </time>
                             </button>
