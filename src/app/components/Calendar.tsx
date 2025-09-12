@@ -1,11 +1,17 @@
 import {
     CalendarIcon,
+    ClockIcon,
     ChevronLeftIcon,
     ChevronRightIcon,
     EllipsisHorizontalIcon,
     MapPinIcon,
 } from '@heroicons/react/20/solid'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import prisma from '../../../lib/prisma'
+
+const events = await prisma.event.findMany();
+console.log('Fetched events from DB:', events);
+const meetingImage = 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
 
 const meetings = [
     {
@@ -156,23 +162,17 @@ export default function Calendar() {
                             </button>
                         ))}
                     </div>
-                    <button
-                        type="button"
-                        className="mt-8 w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:shadow-none dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500"
-                    >
-                        Add event
-                    </button>
                 </div>
                 <ol className="mt-4 divide-y divide-gray-100 text-sm/6 lg:col-span-7 xl:col-span-8 dark:divide-white/10">
-                    {meetings.map((meeting) => (
-                        <li key={meeting.id} className="relative flex gap-x-6 py-6 xl:static">
+                    {events.map((event) => (
+                        <li key={event.id} className="relative flex gap-x-6 py-6 xl:static">
                             <img
                                 alt=""
-                                src={meeting.imageUrl}
+                                src={meetingImage}
                                 className="size-14 flex-none rounded-full dark:outline dark:-outline-offset-1 dark:outline-white/10"
                             />
                             <div className="flex-auto">
-                                <h3 className="pr-10 font-semibold text-gray-900 xl:pr-0 dark:text-white">{meeting.name}</h3>
+                                <h3 className="pr-10 font-semibold text-gray-900 xl:pr-0 dark:text-white">{event.title}</h3>
                                 <dl className="mt-2 flex flex-col text-gray-500 xl:flex-row dark:text-gray-400">
                                     <div className="flex items-start gap-x-3">
                                         <dt className="mt-0.5">
@@ -180,8 +180,19 @@ export default function Calendar() {
                                             <CalendarIcon aria-hidden="true" className="size-5 text-gray-400 dark:text-gray-500" />
                                         </dt>
                                         <dd>
-                                            <time dateTime={meeting.datetime}>
-                                                {meeting.date} at {meeting.time}
+                                            <time dateTime={event.start_time.toDateString()}>
+                                                {event.start_time.toDateString()}
+                                            </time>
+                                        </dd>
+                                    </div>
+                                    <div className="flex items-start gap-x-3">
+                                        <dt className="mt-0.5">
+                                            <span className="sr-only">Time</span>
+                                            <ClockIcon aria-hidden="true" className="size-5 text-gray-400 dark:text-gray-500" />
+                                        </dt>
+                                        <dd>
+                                            <time dateTime={event.start_time.toLocaleTimeString()}>
+                                                {event.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} to {event.end_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                             </time>
                                         </dd>
                                     </div>
@@ -190,41 +201,11 @@ export default function Calendar() {
                                             <span className="sr-only">Location</span>
                                             <MapPinIcon aria-hidden="true" className="size-5 text-gray-400 dark:text-gray-500" />
                                         </dt>
-                                        <dd>{meeting.location}</dd>
+                                        <dd>{event.location}</dd>
                                     </div>
                                 </dl>
                             </div>
-                            <Menu as="div" className="absolute top-6 right-0 xl:relative xl:top-auto xl:right-auto xl:self-center">
-                                <MenuButton className="relative flex items-center rounded-full text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-white">
-                                    <span className="absolute -inset-2" />
-                                    <span className="sr-only">Open options</span>
-                                    <EllipsisHorizontalIcon aria-hidden="true" className="size-5" />
-                                </MenuButton>
 
-                                <MenuItems
-                                    transition
-                                    className="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-white shadow-lg outline-1 outline-black/5 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in dark:bg-gray-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10"
-                                >
-                                    <div className="py-1">
-                                        <MenuItem>
-                                            <a
-                                                href="#"
-                                                className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden dark:text-gray-300 dark:data-focus:bg-white/5 dark:data-focus:text-white"
-                                            >
-                                                Edit
-                                            </a>
-                                        </MenuItem>
-                                        <MenuItem>
-                                            <a
-                                                href="#"
-                                                className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden dark:text-gray-300 dark:data-focus:bg-white/5 dark:data-focus:text-white"
-                                            >
-                                                Cancel
-                                            </a>
-                                        </MenuItem>
-                                    </div>
-                                </MenuItems>
-                            </Menu>
                         </li>
                     ))}
                 </ol>
