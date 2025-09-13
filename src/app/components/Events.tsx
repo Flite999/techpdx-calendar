@@ -14,7 +14,7 @@ export default async function Events({ events }: Props) {
     const meetingImage = 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
 
     return (
-        <div>
+        <>
             <ol className="mt-4 divide-y divide-gray-100 text-sm/6 lg:col-span-7 xl:col-span-8 dark:divide-white/10">
                 {events.map((event) => (
                     <li key={event.id} className="relative flex gap-x-6 py-6 xl:static">
@@ -61,7 +61,7 @@ export default async function Events({ events }: Props) {
                     </li>
                 ))}
             </ol>
-        </div>
+        </>
     )
 
 }
