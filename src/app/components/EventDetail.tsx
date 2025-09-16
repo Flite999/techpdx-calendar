@@ -1,11 +1,9 @@
 import { PaperClipIcon } from '@heroicons/react/20/solid'
-import prisma from '../../../lib/prisma'
+import { findEventByHash } from '../../../lib/hash';
 
 export default async function EventDetail(slug: { id: string }) {
-    const event = await prisma.event.findUnique({
-        where: { id: slug.id }
-    },
-    )
+    // Find the event by hash
+    const event = await findEventByHash(slug.id);
 
 
     if (!event) {
