@@ -16,7 +16,7 @@ model Event {
     title       String
     start_time  DateTime
     end_time    DateTime
-    website     String
-    description String
-    location    String
+    website     String?
+    description String?
+    location    String?
 }
