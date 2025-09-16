@@ -2,8 +2,8 @@ import { JSX, SVGProps } from "react"
 
 const navigation = {
     TechPDXCalendar: [
-        { name: 'Subscribe to Calendar', href: '#' },
-        { name: 'Event Blog', href: '#' },
+        { name: 'Subscribe to Calendar', href: typeof window !== 'undefined' ? `webcal://${window.location.host}/api/feed.ics` : 'webcal://localhost:3000/api/feed.ics' },
+        { name: 'Event Blog', href: 'https://www.techpdx.io' },
     ],
     social: [
         {
