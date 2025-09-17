@@ -1,8 +1,8 @@
-import { PaperClipIcon } from '@heroicons/react/20/solid'
+import { env } from 'process';
 import { findEventByHash } from '../../../lib/hash';
+import { GoogleMapsEmbed } from '@next/third-parties/google'
 
 export default async function EventDetail(slug: { id: string }) {
-    // Find the event by hash
     const event = await findEventByHash(slug.id);
 
 
@@ -40,7 +40,15 @@ export default async function EventDetail(slug: { id: string }) {
                             {event.location}
                         </dd>
                     </div>
-
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <GoogleMapsEmbed
+                            apiKey={env.GOOGLE_MAPS_API_KEY ?? ''}
+                            height={200}
+                            width="100%"
+                            mode="place"
+                            q={event.location || ''}
+                        />
+                    </div>
                 </dl>
             </div>
         </div>
