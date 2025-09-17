@@ -6,7 +6,7 @@ import Link from 'next/link'
 const navigation = [
     { name: 'Event Blog', href: 'https://www.techpdx.io', current: true },
     { name: 'Add/Import an Event', href: '/add-event', current: false },
-    { name: 'Search Events', href: '/search-events', current: false },
+    { name: 'Search Events', href: '/search', current: false },
 ]
 
 function classNames(...classes: string[]) {
