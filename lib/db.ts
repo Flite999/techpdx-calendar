@@ -1,12 +1,7 @@
-import { PrismaClient } from '@prisma/client'
-
-const globalForPrisma = globalThis as unknown as {
-    prisma: PrismaClient | undefined
-}
-
-export const prisma = globalForPrisma.prisma ?? new PrismaClient()
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+'use server'
+import prisma from './prisma'
+import { schema } from './zod'
+import { generateUniqueSlug } from './hash'
 
 export async function searchEvents(
     query: string,
@@ -33,7 +28,8 @@ export async function searchEvents(
                     end_time: true,
                     website: true,
                     description: true,
-                    location: true
+                    location: true,
+                    slug: true
                 },
                 orderBy: { createdAt: 'desc' },
                 skip,
@@ -62,4 +58,54 @@ export async function searchEvents(
         console.error('Database search error:', error)
         throw new Error('Failed to search events')
     }
+}
+
+
+
+export async function addEventToDB(initialState: any, formData: FormData) {
+    const validatedFields = schema.safeParse({
+        title: formData.get('title'),
+        start_time: formData.get('start_time'),
+        end_time: formData.get('end_time'),
+        website: formData.get('website'),
+        description: formData.get('description'),
+        location: formData.get('location')
+    })
+
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Failed to create event. Please check your inputs.'
+        }
+    }
+    try {
+        await prisma.event.create({
+            data: {
+                title: validatedFields.data.title,
+                start_time: new Date(validatedFields.data.start_time),
+                end_time: new Date(validatedFields.data.end_time),
+                website: validatedFields.data.website,
+                description: validatedFields.data.description,
+                location: validatedFields.data.location,
+                slug: await generateUniqueSlug(validatedFields.data.title)
+            },
+        })
+
+        return {
+            message: 'Event created successfully!',
+            errors: {}
+        }
+    } catch (error) {
+        console.error('Database error:', error)
+        return {
+            message: 'Error: Failed to create event.',
+            errors: {}
+        }
+    }
+}
+
+export async function loadEvent(slug: { slug: string }) {
+    return await prisma.event.findUnique({
+        where: { slug: slug.slug },
+    });
 }

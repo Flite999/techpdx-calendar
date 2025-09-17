@@ -3,7 +3,8 @@
 
 
 import { useActionState } from "react"
-import { addEventToDB, AddEventState } from "../actions"
+import { AddEventState } from "../actions"
+import { addEventToDB } from "../../../lib/db";
 
 const initialState: AddEventState = {
     message: '',

@@ -1,4 +1,3 @@
-// components/SearchResultCard.tsx
 import Link from 'next/link'
 import { Event } from '../../../lib/types'
 
@@ -25,7 +24,7 @@ export default function SearchResultCard({ event, searchQuery }: SearchResultCar
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
           <Link
-            href={`/events/${event.id}`}
+            href={`/events/${event.slug}`}
             className="block group"
           >
             <h3

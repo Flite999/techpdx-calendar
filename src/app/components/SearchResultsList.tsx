@@ -16,7 +16,7 @@ export default function SearchResultsList({ results, searchQuery }: SearchResult
             <ul role="list" className="divide-y divide-gray-200 dark:divide-white/10">
                 {results.map((event) => (
                     <SearchResultCard
-                        key={event.id}
+                        key={event.slug}
                         event={event}
                         searchQuery={searchQuery}
                     />

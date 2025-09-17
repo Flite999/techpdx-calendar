@@ -28,6 +28,7 @@ This project is currently deployed on Vercel.
 `vercel env pull .env` (if this does not work copy and paste env values from vercel console manually)
 `npm install prisma --save-dev`
 `npx prisma db push` - after a successful push, `generate` will be run.
+`npx prisma db push --force-reset` to drop the db and migrate.
 `npx prisma studio` local instance of prism, create dummy data here
 
 Create prisma client instance for app to interact with DB `mkdir lib && touch lib/prisma.ts`

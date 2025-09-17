@@ -1,10 +1,9 @@
 import { env } from 'process';
-import { findEventByHash } from '../../../lib/hash';
 import { GoogleMapsEmbed } from '@next/third-parties/google'
+import { loadEvent } from '../../../lib/db';
 
-export default async function EventDetail(slug: { id: string }) {
-    const event = await findEventByHash(slug.id);
-
+export default async function EventDetail(slug: { slug: string }) {
+    const event = await loadEvent(slug);
 
     if (!event) {
         return <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800/50 dark:shadow-none dark:inset-ring dark:inset-ring-white/10"><div className="px-4 py-6 sm:px-6">

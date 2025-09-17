@@ -6,6 +6,7 @@ export interface Event {
     end_time: Date
     website?: string
     location?: string
+    slug: string
 }
 
 export interface SearchResult {

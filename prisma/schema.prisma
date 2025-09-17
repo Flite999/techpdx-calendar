@@ -11,6 +11,7 @@ datasource db {
 
 model Event {
     id          String   @id @default(cuid())
+    slug        String   @unique
     createdAt   DateTime @default(now()) @map(name: "created_at")
     updatedAt   DateTime @updatedAt @map(name: "updated_at")
     title       String
