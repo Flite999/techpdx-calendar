@@ -1,30 +1,34 @@
-# TechPDX Calendar
+# TechPDX-Calendar
 
-https://www.techpdx.io
-Version 0.3.0
+This is a [Next.js](https://nextjs.org) project.
 
-Ruby 3.3.6
-Rails 8.0.1
+## Getting Started
 
-To seed data, run `bin/rails db:seed`
+First, run the development server:
 
-To clear the db, run `bin/rails db:drop db:create db:migrate`
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-To troubleshoot database, run `rails console`
-* From the console you can run `Event.all` to see all events
-* Page through all events as an array `Event.all.to_a`
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-To edit the credential file for local testing: `bin/rails credentials:edit`
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-To set env vars in Heroku: `heroku config:set ENV_VAR=ENV_VALUE`
+## Vercel
 
-To run the dev server with auto-reload on saved files: `bin/dev`
+This project is currently deployed on Vercel.
 
-Sample calendar for testing importing: https://www.calendarlabs.com/ical-calendar/ics/76/US_Holidays.ics
+`npm i -g vercel@latest`
+`vercel env pull .env` (if this does not work copy and paste env values from vercel console manually)
+`npm install prisma --save-dev`
+`npx prisma db push` - after a successful push, `generate` will be run.
+`npx prisma db push --force-reset` to drop the db and migrate.
+`npx prisma studio` local instance of prism, create dummy data here
 
-Heroku cmds:
-* `heroku login`
-* `git push heroku main`
-* `heroku run rails db: migrate`
-* `heroku run rails console`
-* `heroku logs --tail`
+Create prisma client instance for app to interact with DB `mkdir lib && touch lib/prisma.ts`

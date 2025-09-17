@@ -1,0 +1,23 @@
+// schema.prisma
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Event {
+    id          String   @id @default(cuid())
+    slug        String   @unique
+    createdAt   DateTime @default(now()) @map(name: "created_at")
+    updatedAt   DateTime @updatedAt @map(name: "updated_at")
+    title       String
+    start_time  DateTime
+    end_time    DateTime
+    website     String?
+    description String?
+    location    String?
+}
