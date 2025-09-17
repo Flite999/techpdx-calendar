@@ -1,6 +1,7 @@
 'use server'
 import prisma from '../../lib/prisma'
-import { convertIcsCalendar, type IcsEvent } from 'ts-ics'
+import { convertIcsCalendar } from 'ts-ics'
+import type { IcsEvent, IcsDateObject } from 'ts-ics'
 import { importSchema } from '../../lib/zod'
 import { generateUniqueSlug } from '../../lib/hash';
 
@@ -23,7 +24,7 @@ export type AddEventState = {
     };
 };
 
-export async function importEventFromICS(initialState: any, formData: FormData): Promise<ImportEventState> {
+export async function importEventFromICS(initialState: ImportEventState, formData: FormData): Promise<ImportEventState> {
     const validatedFields = importSchema.safeParse({
         ics_url: formData.get('ics_url')
     })
@@ -54,10 +55,9 @@ export async function importEventFromICS(initialState: any, formData: FormData):
         // Take first event only for now
         const event: IcsEvent = calendar.events[0]
         // Convert IcsDateObject to JS Date
-        function icsDateToDate(icsDate: any): Date | null {
+        function icsDateToDate(icsDate: IcsDateObject | undefined): Date | null {
             if (!icsDate) return null;
             if (icsDate.date) return new Date(icsDate.date);
-            if (icsDate.dateTime) return new Date(icsDate.dateTime);
             return null;
         }
 

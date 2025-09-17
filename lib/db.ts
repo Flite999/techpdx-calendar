@@ -2,6 +2,7 @@
 import prisma from './prisma'
 import { schema } from './zod'
 import { generateUniqueSlug } from './hash'
+import { AddEventState } from '@/app/actions'
 
 export async function searchEvents(
     query: string,
@@ -46,7 +47,12 @@ export async function searchEvents(
         ])
 
         return {
-            results,
+            results: results.map(event => ({
+                ...event,
+                description: event.description ?? undefined,
+                website: event.website ?? undefined,
+                location: event.location ?? undefined,
+            })),
             pagination: {
                 page,
                 limit,
@@ -62,7 +68,7 @@ export async function searchEvents(
 
 
 
-export async function addEventToDB(initialState: any, formData: FormData) {
+export async function addEventToDB(initialState: AddEventState, formData: FormData) {
     const validatedFields = schema.safeParse({
         title: formData.get('title'),
         start_time: formData.get('start_time'),

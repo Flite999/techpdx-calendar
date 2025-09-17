@@ -20,7 +20,7 @@ export default function SearchPagination({
         const halfShow = Math.floor(showPages / 2)
 
         let start = Math.max(1, currentPage - halfShow)
-        let end = Math.min(totalPages, start + showPages - 1)
+        const end = Math.min(totalPages, start + showPages - 1)
 
         if (end - start + 1 < showPages) {
             start = Math.max(1, end - showPages + 1)
@@ -49,8 +49,8 @@ export default function SearchPagination({
                     key={pageNum}
                     onClick={() => onPageChange(pageNum)}
                     className={`px-3 py-2 text-sm font-medium border rounded-md transition-colors duration-200 ${currentPage === pageNum
-                            ? 'bg-blue-600 text-white border-blue-600'
-                            : 'text-gray-700 bg-white border-gray-300 hover:bg-gray-50'
+                        ? 'bg-blue-600 text-white border-blue-600'
+                        : 'text-gray-700 bg-white border-gray-300 hover:bg-gray-50'
                         }`}
                     aria-label={`Page ${pageNum}`}
                     aria-current={currentPage === pageNum ? 'page' : undefined}
