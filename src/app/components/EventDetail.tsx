@@ -6,12 +6,12 @@ export default async function EventDetail(slug: { slug: string }) {
     const event = await loadEvent(slug);
 
     if (!event) {
-        return <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800/50 dark:shadow-none dark:inset-ring dark:inset-ring-white/10"><div className="px-4 py-6 sm:px-6">
+        return <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-600 dark:shadow-none dark:inset-ring dark:inset-ring-white/10"><div className="px-4 py-6 sm:px-6">
             <h3 className="text-base/7 font-semibold text-gray-900 dark:text-white">Event not found</h3>
         </div></div>;
     }
     return (
-        <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800/50 dark:shadow-none dark:inset-ring dark:inset-ring-white/10">
+        <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-600 dark:shadow-none dark:inset-ring dark:inset-ring-white/10">
             <div className="px-4 py-6 sm:px-6">
                 <h3 className="text-base/7 font-semibold text-gray-900 dark:text-white">{event.title}</h3>
             </div>

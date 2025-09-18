@@ -12,8 +12,8 @@ export default function SearchResultsList({ results, searchQuery }: SearchResult
     }
 
     return (
-        <div className="overflow-hidden rounded-md bg-white shadow-sm dark:bg-gray-800/50 dark:shadow-none dark:outline dark:-outline-offset-0 dark:outline-white/10">
-            <ul role="list" className="divide-y divide-gray-200 dark:divide-white/10">
+        <div className="overflow-hidden rounded-md bg-white shadow-sm dark:bg-white">
+            <ul role="list" className="divide-y divide-gray-200 ">
                 {results.map((event) => (
                     <SearchResultCard
                         key={event.slug}

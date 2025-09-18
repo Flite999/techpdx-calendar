@@ -25,7 +25,7 @@ export default async function Events({ events }: Props) {
                         />
                         <div className="flex-auto">
                             <Link href={`/events/${event.slug}`}>
-                                <h3 className="pr-10 font-semibold text-gray-900 xl:pr-0 dark:text-white">{event.title}</h3>
+                                <h3 className="pr-10 font-semibold text-gray-900 xl:pr-0 dark:text-gray-800">{event.title}</h3>
                             </Link>
                             <dl className="mt-2 flex flex-col text-gray-500 xl:flex-row dark:text-gray-400">
                                 <div className="flex items-start gap-x-3">

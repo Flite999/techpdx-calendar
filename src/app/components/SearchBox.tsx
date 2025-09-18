@@ -28,11 +28,11 @@ export default function SearchBox({
     return (
         <form onSubmit={handleSubmit} className={`relative ${className}`}>
             <div>
-                <label htmlFor="search" className="block text-sm/6 font-medium text-gray-900 dark:text-white">
+                <label htmlFor="search" className="block text-sm/6 font-medium text-gray-900 dark:text-gray-900">
                     Search Events
                 </label>
                 <div className="mt-2">
-                    <div className="flex rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600 dark:bg-white/5 dark:outline-1 dark:-outline-offset-1 dark:outline-white/10 dark:focus-within:outline-indigo-500">
+                    <div className="flex rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600 dark:bg-gray-600 dark:outline-1 dark:-outline-offset-1 dark:outline-white/10 dark:focus-within:outline-indigo-500">
                         <input
                             id="search"
                             name="search"

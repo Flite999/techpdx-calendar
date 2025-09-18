@@ -1,5 +1,5 @@
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { CalendarDays } from 'lucide-react'
 import Link from 'next/link'
 
@@ -15,14 +15,6 @@ function classNames(...classes: string[]) {
 export default function Header() {
     return (
         <>
-            {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full">
-        <body class="h-full">
-        ```
-      */}
             <div className="min-h-full">
                 <Disclosure as="nav" className="border-b border-gray-200 bg-white dark:border-white/10 dark:bg-gray-900">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -30,7 +22,7 @@ export default function Header() {
                             <div className="flex">
                                 <div className="flex shrink-0 items-center">
                                     <Link href="/">
-                                        <CalendarDays />
+                                        <CalendarDays className="text-white" />
                                     </Link>
                                 </div>
                                 <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">

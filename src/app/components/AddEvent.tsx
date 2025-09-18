@@ -17,9 +17,9 @@ export default function AddEvent() {
     return (
         <div className="grid grid-cols-1 gap-x-8 gap-y-8 py-10 md:grid-cols-3">
             <div className="px-4 sm:px-0">
-                <h2 className="text-base/7 font-semibold text-gray-900 dark:text-white">Add a New Event</h2>
+                <h2 className="text-base/7 font-semibold text-gray-900 dark:text-gray-800">Add a New Event</h2>
             </div>
-            <form action={formAction} className="bg-white shadow-xs outline outline-gray-900/5 sm:rounded-xl md:col-span-2 dark:bg-gray-800/50 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10">
+            <form action={formAction} className="bg-white shadow-xs outline outline-gray-900/5 sm:rounded-xl md:col-span-2 dark:bg-gray-600 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10">
                 <div className="px-4 py-6 sm:p-8">
                     <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div className="sm:col-span-4">

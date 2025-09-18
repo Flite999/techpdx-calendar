@@ -36,7 +36,7 @@ export default function CalendarNav({ currentYm }: Props) {
                 <span className="sr-only">Previous month</span>
                 <ChevronLeftIcon aria-hidden="true" className="size-5" />
             </button>
-            <div className="flex-auto text-sm font-semibold">{label}</div>
+            <div className="flex-auto text-sm font-semibold dark:text-gray-600">{label}</div>
             <button
                 type="button"
                 className="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-white"

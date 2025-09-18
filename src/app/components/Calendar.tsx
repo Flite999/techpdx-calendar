@@ -21,7 +21,7 @@ export default async function Calendar({ ym }: { ym?: string }) {
     const currentYm = formatYm(year, month)
     return (
         <div>
-            <h2 className="text-base font-semibold text-gray-900 dark:text-white">Upcoming events</h2>
+            <h2 className="text-base font-semibold text-gray-900 dark:text-gray-800">Upcoming events</h2>
             <div className="lg:grid lg:grid-cols-12 lg:gap-x-16">
                 <div className="mt-10 text-center lg:col-start-8 lg:col-end-13 lg:row-start-1 lg:mt-9 xl:col-start-9">
                     <CalendarNav key={`nav-${currentYm}`} currentYm={currentYm} />

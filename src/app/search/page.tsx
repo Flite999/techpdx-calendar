@@ -41,10 +41,10 @@ function SearchContent() {
         <>
           {/* Results Header */}
           <div className="mb-6">
-            <h1 className="block text-sm/6 font-medium text-gray-900 dark:text-white">
+            <h1 className="block text-sm/6 font-medium text-gray-900 dark:text-gray-800">
               Search Results
             </h1>
-            <p className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0 dark:text-gray-300">
+            <p className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0 dark:text-gray-600">
               Results for <span className="font-semibold">{query}</span>
               {data && (
                 <span className="text-gray-500 dark:text-gray-400">
