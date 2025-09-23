@@ -22,7 +22,7 @@ export default function Header() {
                             <div className="flex">
                                 <div className="flex shrink-0 items-center">
                                     <Link href="/">
-                                        <CalendarDays className="text-white" />
+                                        <CalendarDays className="text-black dark:text-white" />
                                     </Link>
                                 </div>
                                 <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">

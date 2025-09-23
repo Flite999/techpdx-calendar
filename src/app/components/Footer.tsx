@@ -2,13 +2,13 @@ import { JSX, SVGProps } from "react"
 
 const navigation = {
     TechPDXCalendar: [
-        { name: 'Subscribe to Calendar', href: typeof window !== 'undefined' ? `webcal://${window.location.host}/api/feed.ics` : 'webcal://localhost:3000/api/feed.ics' },
+        { name: 'Subscribe to Calendar', href: 'webcal://calendar.techpdx.io/api/feed.ics' },
         { name: 'Event Blog', href: 'https://www.techpdx.io' },
     ],
     social: [
         {
             name: 'GitHub',
-            href: '#',
+            href: 'https://github.com/Flite999/techpdx-calendar',
             icon: (props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) => (
                 <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                     <path
