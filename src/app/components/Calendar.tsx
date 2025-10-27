@@ -7,11 +7,13 @@ import Events from './Events';
 export default async function Calendar({ ym }: { ym?: string }) {
     const { year, month } = parseYmParam(ym)
     const { first, nextFirst } = monthBoundariesUTC(year, month)
+    const now = new Date()
     const events = await prisma.event.findMany({
         where: {
             AND: [
                 { start_time: { lt: nextFirst } },
                 { end_time: { gte: first } },
+                { end_time: { gte: now } }, // Only show events that haven't ended yet
             ],
         },
         orderBy: { start_time: 'asc' },

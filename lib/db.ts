@@ -10,14 +10,20 @@ export async function searchEvents(
     limit: number = 10
 ) {
     const skip = (page - 1) * limit
+    const now = new Date()
 
     try {
         const [results, totalCount] = await Promise.all([
             prisma.event.findMany({
                 where: {
-                    OR: [
-                        { title: { contains: query, mode: 'insensitive' } },
-                        { description: { contains: query, mode: 'insensitive' } }
+                    AND: [
+                        {
+                            OR: [
+                                { title: { contains: query, mode: 'insensitive' } },
+                                { description: { contains: query, mode: 'insensitive' } }
+                            ]
+                        },
+                        { end_time: { gte: now } } // Only show events that haven't ended yet
                     ]
                 },
                 select: {
@@ -38,9 +44,14 @@ export async function searchEvents(
             }),
             prisma.event.count({
                 where: {
-                    OR: [
-                        { title: { contains: query, mode: 'insensitive' } },
-                        { description: { contains: query, mode: 'insensitive' } }
+                    AND: [
+                        {
+                            OR: [
+                                { title: { contains: query, mode: 'insensitive' } },
+                                { description: { contains: query, mode: 'insensitive' } }
+                            ]
+                        },
+                        { end_time: { gte: now } } // Only count events that haven't ended yet
                     ]
                 }
             })
