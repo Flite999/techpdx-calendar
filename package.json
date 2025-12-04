@@ -19,7 +19,7 @@
     "ical-generator": "^9.0.0",
     "lucide-react": "^0.542.0",
     "motion": "^12.23.12",
-    "next": "^15.5.3",
+    "next": "^15.5.7",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "tailwind-merge": "^3.3.1",
