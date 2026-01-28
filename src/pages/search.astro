@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro'
+import SearchBox from '../components/SearchBox.astro'
+import SearchResultsList from '../components/SearchResultsList.astro'
+import SearchPagination from '../components/SearchPagination.astro'
+import { searchEvents } from '../lib/db'
+
+const query = Astro.url.searchParams.get('q') || ''
+const currentPage = parseInt(Astro.url.searchParams.get('page') || '1')
+
+let data = null
+let error = ''
+
+if (query.trim()) {
+  try {
+    data = await searchEvents(query.trim(), currentPage)
+  } catch (e) {
+    error = 'Failed to search events. Please try again.'
+  }
+}
+---
+
+<Layout title="Search Events">
+  <div class="search-container">
+    <div class="search-box-wrapper">
+      <SearchBox initialQuery={query} />
+    </div>
+
+    {query && (
+      <div>
+        <div class="search-results-header">
+          <h1 class="search-results-title">Search Results</h1>
+          <p class="search-results-subtitle">
+            Results for <strong>{query}</strong>
+            {data && (
+              <span class="search-results-count">
+                {' - '}
+                {data.pagination.totalCount} {data.pagination.totalCount === 1 ? 'result' : 'results'} found
+              </span>
+            )}
+          </p>
+        </div>
+
+        {error && (
+          <div class="form-message form-message--error">{error}</div>
+        )}
+
+        {!error && data && data.results.length === 0 && (
+          <div class="search-no-results">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <h3 class="search-no-results-title">No results found</h3>
+          </div>
+        )}
+
+        {!error && data && data.results.length > 0 && (
+          <div>
+            <div style="margin-bottom: 2rem;">
+              <SearchResultsList results={data.results} searchQuery={query} />
+            </div>
+            <SearchPagination
+              currentPage={data.pagination.page}
+              totalPages={data.pagination.totalPages}
+              query={query}
+            />
+          </div>
+        )}
+      </div>
+    )}
+  </div>
+</Layout>

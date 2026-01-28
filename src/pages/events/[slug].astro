@@ -1,0 +1,21 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import EventDetail from '../../components/EventDetail.astro'
+import { loadEvent } from '../../lib/db'
+
+const { slug } = Astro.params
+
+if (!slug) {
+  return Astro.redirect('/404')
+}
+
+const event = await loadEvent({ slug })
+
+if (!event) {
+  return new Response(null, { status: 404, statusText: 'Not found' })
+}
+---
+
+<Layout title={event.title}>
+  <EventDetail event={event} />
+</Layout>

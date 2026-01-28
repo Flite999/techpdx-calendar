@@ -1,0 +1,35 @@
+---
+import type { Event } from '../lib/types'
+
+interface Props {
+  event: Event
+  searchQuery: string
+}
+
+const { event, searchQuery } = Astro.props
+
+function highlightText(text: string, query: string): string {
+  if (!query.trim()) return text
+  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const regex = new RegExp(`(${escaped})`, 'gi')
+  return text.replace(regex, '<mark class="search-highlight">$1</mark>')
+}
+
+function truncateContent(content: string, maxLength: number = 200): string {
+  if (content.length <= maxLength) return content
+  return content.substring(0, maxLength).trim() + '...'
+}
+---
+
+<li class="search-result-item">
+  <div>
+    <h3 class="search-result-title">
+      <a href={`/events/${event.slug}`}>
+        <Fragment set:html={highlightText(event.title, searchQuery)} />
+      </a>
+    </h3>
+    <p class="search-result-description">
+      <Fragment set:html={highlightText(truncateContent(event.description ?? ''), searchQuery)} />
+    </p>
+  </div>
+</li>

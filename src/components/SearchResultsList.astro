@@ -1,0 +1,21 @@
+---
+import type { Event } from '../lib/types'
+import SearchResultCard from './SearchResultCard.astro'
+
+interface Props {
+  results: Event[]
+  searchQuery: string
+}
+
+const { results, searchQuery } = Astro.props
+---
+
+{results.length > 0 && (
+  <div class="search-results-list">
+    <ul role="list">
+      {results.map((event) => (
+        <SearchResultCard event={event} searchQuery={searchQuery} />
+      ))}
+    </ul>
+  </div>
+)}

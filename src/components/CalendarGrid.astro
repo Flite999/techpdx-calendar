@@ -1,0 +1,49 @@
+---
+interface Props {
+  year: number
+  month: number
+  grid: Date[][]
+}
+
+const { year, month, grid } = Astro.props
+const today = new Date()
+const headers = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+
+function isSameDay(a: Date, b: Date) {
+  return a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+}
+
+function iso(d: Date) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+---
+
+<div>
+  <div class="calendar-day-headers">
+    {headers.map((h) => <div>{h}</div>)}
+  </div>
+  <div class="calendar-grid">
+    {grid.flatMap((week, wi) =>
+      week.map((day, di) => {
+        const dayISO = iso(day)
+        const isToday = isSameDay(day, today)
+        const isCurrentMonth = day.getMonth() === month - 1
+        const classes = [
+          'calendar-day',
+          !isCurrentMonth && 'calendar-day--outside',
+          isToday && 'calendar-day--today',
+        ].filter(Boolean).join(' ')
+
+        return (
+          <button type="button" class={classes}>
+            <time datetime={dayISO} class="calendar-day-number">
+              {day.getDate()}
+            </time>
+          </button>
+        )
+      })
+    )}
+  </div>
+</div>

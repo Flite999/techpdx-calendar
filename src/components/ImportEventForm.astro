@@ -1,0 +1,38 @@
+---
+interface Props {
+  success?: string
+  error?: string
+  errors?: Record<string, string[]>
+}
+
+const { success, error, errors = {} } = Astro.props
+---
+
+<div class="form-section">
+  <div class="form-layout">
+    <div>
+      <h2 class="form-heading">Import an event</h2>
+      <p class="form-description">
+        Current supported import formats: iCalendar format (.ics)
+      </p>
+      <p class="form-description">
+        For meetup events, copy the .ics hyperlink and paste here.
+      </p>
+    </div>
+    <form method="POST" action="/api/import-event" class="form-card">
+      <div class="form-fields">
+        <div class="form-group--half">
+          <label for="ics_url" class="form-label">Import by URL</label>
+          <input id="ics_url" name="ics_url" type="url" placeholder="Paste .ics URL here" class="form-input-standalone" />
+          {errors.ics_url && <p class="form-error">{errors.ics_url[0]}</p>}
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="form-btn-cancel">Cancel</button>
+        {success && <p class="form-message form-message--success">{success}</p>}
+        {error && <p class="form-message form-message--error">{error}</p>}
+        <button type="submit" class="form-btn-submit">Import from ICS</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+---
+interface Props {
+  currentPage: number
+  totalPages: number
+  query: string
+}
+
+const { currentPage, totalPages, query } = Astro.props
+
+function getPageNumbers(): number[] {
+  const pages: number[] = []
+  const showPages = 5
+  const halfShow = Math.floor(showPages / 2)
+  let start = Math.max(1, currentPage - halfShow)
+  const end = Math.min(totalPages, start + showPages - 1)
+  if (end - start + 1 < showPages) {
+    start = Math.max(1, end - showPages + 1)
+  }
+  for (let i = start; i <= end; i++) {
+    pages.push(i)
+  }
+  return pages
+}
+
+const pageNumbers = getPageNumbers()
+const encodedQuery = encodeURIComponent(query)
+---
+
+{totalPages > 1 && (
+  <nav class="search-pagination" aria-label="Pagination">
+    {currentPage > 1 ? (
+      <a
+        href={`/search?q=${encodedQuery}&page=${currentPage - 1}`}
+        class="search-pagination-btn"
+        aria-label="Previous page"
+      >Previous</a>
+    ) : (
+      <span class="search-pagination-btn" aria-disabled="true">Previous</span>
+    )}
+
+    {pageNumbers.map((pageNum) => (
+      <a
+        href={`/search?q=${encodedQuery}&page=${pageNum}`}
+        class:list={['search-pagination-page', { 'search-pagination-page--active': currentPage === pageNum }]}
+        aria-label={`Page ${pageNum}`}
+        aria-current={currentPage === pageNum ? 'page' : undefined}
+      >{pageNum}</a>
+    ))}
+
+    {currentPage < totalPages ? (
+      <a
+        href={`/search?q=${encodedQuery}&page=${currentPage + 1}`}
+        class="search-pagination-btn"
+        aria-label="Next page"
+      >Next</a>
+    ) : (
+      <span class="search-pagination-btn" aria-disabled="true">Next</span>
+    )}
+  </nav>
+)}

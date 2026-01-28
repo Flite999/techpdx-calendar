@@ -1,0 +1,56 @@
+---
+import type { Event } from '@prisma/client'
+
+interface Props {
+  event: Event
+}
+
+const { event } = Astro.props
+const mapsApiKey = import.meta.env.GOOGLE_MAPS_API_KEY ?? ''
+const startFormatted = event.start_time
+  ? event.start_time.toLocaleString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true })
+  : ''
+const endFormatted = event.end_time
+  ? event.end_time.toLocaleString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true })
+  : ''
+const mapQuery = encodeURIComponent(event.location || '')
+---
+
+<div class="event-detail">
+  <div class="event-detail-header">
+    <h3 class="event-detail-title">{event.title}</h3>
+  </div>
+  <div class="event-detail-body">
+    <div class="event-detail-row">
+      <dt class="event-detail-label">Description</dt>
+      <dd class="event-detail-value">{event.description}</dd>
+    </div>
+    <div class="event-detail-row">
+      <dt class="event-detail-label">Start Time</dt>
+      <dd class="event-detail-value">{startFormatted}</dd>
+    </div>
+    <div class="event-detail-row">
+      <dt class="event-detail-label">End Time</dt>
+      <dd class="event-detail-value">{endFormatted}</dd>
+    </div>
+    <div class="event-detail-row">
+      <dt class="event-detail-label">Website</dt>
+      <dd class="event-detail-value">{event.website}</dd>
+    </div>
+    <div class="event-detail-row">
+      <dt class="event-detail-label">Location</dt>
+      <dd class="event-detail-value">{event.location}</dd>
+    </div>
+    {event.location && mapsApiKey && (
+      <div class="map-embed">
+        <iframe
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          src={`https://www.google.com/maps/embed/v1/place?key=${mapsApiKey}&q=${mapQuery}`}
+          title="Event location map"
+        ></iframe>
+      </div>
+    )}
+  </div>
+</div>

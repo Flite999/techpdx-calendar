@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro'
+import CalendarNav from '../components/CalendarNav.astro'
+import CalendarGrid from '../components/CalendarGrid.astro'
+import Events from '../components/Events.astro'
+import prisma from '../lib/prisma'
+import { parseYmParam, monthBoundariesUTC, monthGrid, formatYm } from '../lib/dates'
+
+const ym = Astro.url.searchParams.get('ym') ?? undefined
+const { year, month } = parseYmParam(ym)
+const { first, nextFirst } = monthBoundariesUTC(year, month)
+const now = new Date()
+
+const events = await prisma.event.findMany({
+  where: {
+    AND: [
+      { start_time: { lt: nextFirst } },
+      { end_time: { gte: first } },
+      { end_time: { gte: now } },
+    ],
+  },
+  orderBy: { start_time: 'asc' },
+})
+
+const grid = monthGrid(year, month)
+const currentYm = formatYm(year, month)
+---
+
+<Layout>
+  <div class="home-container">
+    <main class="home-main">
+      <div>
+        <h2 class="section-title">Upcoming events</h2>
+        <div class="calendar-layout">
+          <div class="calendar-sidebar">
+            <CalendarNav currentYm={currentYm} />
+            <CalendarGrid year={year} month={month} grid={grid} />
+          </div>
+          <Events events={events} />
+        </div>
+      </div>
+    </main>
+  </div>
+</Layout>

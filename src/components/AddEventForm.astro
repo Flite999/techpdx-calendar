@@ -1,0 +1,68 @@
+---
+interface Props {
+  success?: string
+  error?: string
+  errors?: Record<string, string[]>
+}
+
+const { success, error, errors = {} } = Astro.props
+---
+
+<div class="form-section">
+  <div class="form-layout">
+    <div>
+      <h2 class="form-heading">Add a New Event</h2>
+    </div>
+    <form method="POST" action="/api/add-event" class="form-card">
+      <div class="form-fields">
+        <div class="form-group--two-thirds">
+          <label for="title" class="form-label">Title *</label>
+          <div class="form-input-wrapper">
+            <input id="title" name="title" type="text" placeholder="Event title" class="form-input" />
+          </div>
+          {errors.title && <p class="form-error">{errors.title[0]}</p>}
+        </div>
+
+        <div class="form-group--half">
+          <label for="start_time" class="form-label">Start Date & Time *</label>
+          <input id="start_time" name="start_time" type="datetime-local" class="form-input-standalone" />
+          {errors.start_time && <p class="form-error">{errors.start_time[0]}</p>}
+        </div>
+
+        <div class="form-group--half">
+          <label for="end_time" class="form-label">End Date & Time *</label>
+          <input id="end_time" name="end_time" type="datetime-local" class="form-input-standalone" />
+          {errors.end_time && <p class="form-error">{errors.end_time[0]}</p>}
+        </div>
+
+        <div class="form-group">
+          <label for="location" class="form-label">Location</label>
+          <div class="form-input-wrapper">
+            <input id="location" name="location" type="text" placeholder="Enter location (address)" class="form-input" />
+          </div>
+          {errors.location && <p class="form-error">{errors.location[0]}</p>}
+        </div>
+
+        <div class="form-group">
+          <label for="website" class="form-label">Website</label>
+          <div class="form-input-wrapper">
+            <input id="website" name="website" type="url" placeholder="https://example.com" class="form-input" />
+          </div>
+          {errors.website && <p class="form-error">{errors.website[0]}</p>}
+        </div>
+
+        <div class="form-group">
+          <label for="description" class="form-label">Description</label>
+          <textarea id="description" name="description" rows="3" placeholder="Describe your event" class="form-textarea"></textarea>
+          {errors.description && <p class="form-error">{errors.description[0]}</p>}
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="form-btn-cancel">Cancel</button>
+        {success && <p class="form-message form-message--success">{success}</p>}
+        {error && <p class="form-message form-message--error">{error}</p>}
+        <button type="submit" class="form-btn-submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

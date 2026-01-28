@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro'
+import AddEventForm from '../components/AddEventForm.astro'
+import ImportEventForm from '../components/ImportEventForm.astro'
+
+const success = Astro.url.searchParams.get('success') || undefined
+const error = Astro.url.searchParams.get('error') || undefined
+const form = Astro.url.searchParams.get('form') || undefined
+---
+
+<Layout title="Add or Import Event">
+  <div>
+    <AddEventForm
+      success={form === 'add' ? success : undefined}
+      error={form === 'add' ? error : undefined}
+    />
+    <ImportEventForm
+      success={form === 'import' ? success : undefined}
+      error={form === 'import' ? error : undefined}
+    />
+  </div>
+</Layout>
