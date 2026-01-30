@@ -1,6 +1,3 @@
-import { addMonths } from 'date-fns'
-
-
 export function parseYmParam(ym?: string): { year: number; month: number } {
     // ym is YYYY-MM; month is 1-based for readability
     if (!ym) {
@@ -32,16 +29,18 @@ export function formatYm(year: number, month: number) {
 
 
 export function prevYm(year: number, month: number) {
-    const d = new Date(Date.UTC(year, month - 1, 1))
-    const p = addMonths(d, -1)
-    return formatYm(p.getUTCFullYear(), p.getUTCMonth() + 1)
+    if (month === 1) {
+        return formatYm(year - 1, 12)
+    }
+    return formatYm(year, month - 1)
 }
 
 
 export function nextYm(year: number, month: number) {
-    const d = new Date(Date.UTC(year, month - 1, 1))
-    const n = addMonths(d, 1)
-    return formatYm(n.getUTCFullYear(), n.getUTCMonth() + 1)
+    if (month === 12) {
+        return formatYm(year + 1, 1)
+    }
+    return formatYm(year, month + 1)
 }
 
 
