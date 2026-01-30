@@ -8,12 +8,10 @@ const links = [
 <footer class="footer">
   <div class="footer-inner">
     <div>
-      <h3 class="footer-heading">TechPDX Calendar</h3>
+      <a href="/" class="footer-heading">tech<span class="footer-heading-accent">pdx</span></a>
       <ul class="footer-links">
         {links.map((item) => (
-          <li>
-            <a href={item.href} class="footer-link">{item.name}</a>
-          </li>
+          <a href={item.href} class="footer-link">{item.name}</a>
         ))}
       </ul>
     </div>
