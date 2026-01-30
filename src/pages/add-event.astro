@@ -9,7 +9,7 @@ const form = Astro.url.searchParams.get('form') || undefined
 ---
 
 <Layout title="Add or Import Event">
-  <div>
+  <div class="page-container">
     <AddEventForm
       success={form === 'add' ? success : undefined}
       error={form === 'add' ? error : undefined}

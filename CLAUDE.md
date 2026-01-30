@@ -61,3 +61,13 @@ Single `Event` model with: title, start_time, end_time, website, description, lo
 
 ### Slug Generation
 Events use hashids-based slugs generated from title + random number (`src/lib/hash.ts`)
+
+## Design Direction
+
+Visual redesign goals (January 2026):
+- **Tech forward** - Modern, clean aesthetic that reflects the tech community
+- **Portland feel** - Evokes the Pacific Northwest: forests, rain, bridges, craft culture
+- **Friendly & approachable** - Welcoming to newcomers, not intimidating
+- **Modern** - Current design patterns without being trendy/gimmicky
+
+Color palette considerations: Pacific Northwest nature tones (forest greens, slate grays, warm wood tones), accents that feel vibrant but grounded

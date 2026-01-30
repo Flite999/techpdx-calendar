@@ -25,8 +25,8 @@ function iso(d: Date) {
     {headers.map((h) => <div>{h}</div>)}
   </div>
   <div class="calendar-grid">
-    {grid.flatMap((week, wi) =>
-      week.map((day, di) => {
+    {grid.flatMap((week) =>
+      week.map((day) => {
         const dayISO = iso(day)
         const isToday = isSameDay(day, today)
         const isCurrentMonth = day.getMonth() === month - 1
