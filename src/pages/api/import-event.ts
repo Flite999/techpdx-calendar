@@ -1,9 +1,9 @@
 import type { APIRoute } from 'astro'
-import prisma from '../../lib/prisma'
 import { convertIcsCalendar } from 'ts-ics'
 import type { IcsEvent, IcsDateObject } from 'ts-ics'
 import { importSchema } from '../../lib/zod'
-import { generateUniqueSlug } from '../../lib/hash'
+import { addEventToDB } from '../../lib/db'
+import { sanitizeText, sanitizeUrl, MAX_TITLE_LENGTH, MAX_DESCRIPTION_LENGTH, MAX_LOCATION_LENGTH, MAX_ICS_RESPONSE_BYTES } from '../../lib/sanitize'
 
 export const POST: APIRoute = async ({ request, redirect }) => {
   const formData = await request.formData()
@@ -22,7 +22,16 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       return redirect(`/add-event?form=import&error=${encodeURIComponent('Could not fetch ICS file.')}`)
     }
 
+    const contentLength = res.headers.get('content-length')
+    if (contentLength && parseInt(contentLength, 10) > MAX_ICS_RESPONSE_BYTES) {
+      return redirect(`/add-event?form=import&error=${encodeURIComponent('ICS file is too large.')}`)
+    }
+
     const icsText = await res.text()
+    if (icsText.length > MAX_ICS_RESPONSE_BYTES) {
+      return redirect(`/add-event?form=import&error=${encodeURIComponent('ICS file is too large.')}`)
+    }
+
     const calendar = convertIcsCalendar(undefined, icsText)
 
     if (!calendar || !calendar.events || calendar.events.length === 0) {
@@ -33,20 +42,37 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
     function icsDateToDate(icsDate: IcsDateObject | undefined): Date | null {
       if (!icsDate) return null
-      if (icsDate.date) return new Date(icsDate.date)
+      if (icsDate.date) {
+        const d = new Date(icsDate.date)
+        if (isNaN(d.getTime())) return null
+        return d
+      }
       return null
     }
 
-    await prisma.event.create({
-      data: {
-        title: event.summary || 'Imported Event',
-        start_time: icsDateToDate(event.start) || new Date(),
-        end_time: event.end ? (icsDateToDate(event.end) || new Date()) : new Date(),
-        website: '',
-        description: event.description || '',
-        location: event.location || '',
-        slug: await generateUniqueSlug(event.summary),
-      },
+    const startDate = icsDateToDate(event.start)
+    if (!startDate) {
+      return redirect(`/add-event?form=import&error=${encodeURIComponent('Event has no valid start date.')}`)
+    }
+
+    const endDate = icsDateToDate(event.end) || new Date(startDate.getTime() + 60 * 60 * 1000)
+
+    if (endDate < startDate) {
+      return redirect(`/add-event?form=import&error=${encodeURIComponent('Event end time is before start time.')}`)
+    }
+
+    const title = sanitizeText(event.summary || '', MAX_TITLE_LENGTH)
+    if (!title) {
+      return redirect(`/add-event?form=import&error=${encodeURIComponent('Event has no valid title.')}`)
+    }
+
+    await addEventToDB({
+      title,
+      start_time: startDate.toISOString(),
+      end_time: endDate.toISOString(),
+      website: sanitizeUrl(event.url || ''),
+      description: sanitizeText(event.description || '', MAX_DESCRIPTION_LENGTH),
+      location: sanitizeText(event.location || '', MAX_LOCATION_LENGTH),
     })
 
     return redirect('/add-event?form=import&success=Event+imported+successfully!')

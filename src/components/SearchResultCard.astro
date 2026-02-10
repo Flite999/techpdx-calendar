@@ -8,11 +8,21 @@ interface Props {
 
 const { event, searchQuery } = Astro.props
 
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 function highlightText(text: string, query: string): string {
-  if (!query.trim()) return text
+  const safe = escapeHtml(text)
+  if (!query.trim()) return safe
   const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
   const regex = new RegExp(`(${escaped})`, 'gi')
-  return text.replace(regex, '<mark class="search-highlight">$1</mark>')
+  return safe.replace(regex, '<mark class="search-highlight">$1</mark>')
 }
 
 function truncateContent(content: string, maxLength: number = 200): string {
